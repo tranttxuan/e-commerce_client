@@ -1,8 +1,16 @@
 //Color variables
 $color-dark-yellow: #cd9042;
+$color-light-yellow: #f0c14b;
 
 //Margin
 $margin-primary: 20px;
+$margin-medium:15px;
+
+//Padding
+$padding-primary: 5px 10px;
+
+
+
 
 *,
 *::after,
@@ -18,6 +26,9 @@ a {
     margin: 0;
     padding: 0;
 }
+a:hover {
+    color: #cd9042;
+}
 
 //Mixins
 @mixin flex-column {
@@ -32,12 +43,36 @@ a {
 }
 
 @mixin reset {
-      margin: 0!important;
-      min-width: 0!important;
-      padding: 0!important;
-      text-decoration: none!important;
-      text-transform: none!important;
+    margin: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+    text-transform: none !important;
 }
+
+@mixin btn {
+    background:linear-gradient(
+        rgba($color-light-yellow,0.3) 30%, 
+        rgba($color-light-yellow,0.6) 60%, 
+        rgba($color-light-yellow, 1) 100%);
+    border: 1px solid;
+    margin-top: 10px;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: #111;
+    padding: 2px 6px!important;
+
+    &:hover{
+        background: $color-light-yellow!important;
+    }
+    
+}
+
+@mixin rating {
+    & *{
+        font-size: 15px;
+    }
+}
+
 
 
 //MEDIA QUERY MANAGER
@@ -56,19 +91,27 @@ $breakpoint argument choices:
     
 ORDER: Base + typography > general layout + grid > page layout > components
 
-*/ 
+*/
 
 @mixin respond($breakpoint) {
-      @if $breakpoint == phone {
-          @media only screen and (max-width: 600px){ @content };
-      }
-      @if $breakpoint == tab-port {
-          @media only screen and (max-width: 900px){ @content }; 
-      }
-      @if $breakpoint == tab-land {
-          @media only screen and  (max-width: 1200px){ @content };
-      }
-      @if $breakpoint == big-desk {
-          @media only screen and  (min-width: 1800px){ @content }; 
-      }
-  }
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 600px) {
+            @content;
+        }
+    }
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 900px) {
+            @content;
+        }
+    }
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 1200px) {
+            @content;
+        }
+    }
+    @if $breakpoint == big-desk {
+        @media only screen and (min-width: 1800px) {
+            @content;
+        }
+    }
+}

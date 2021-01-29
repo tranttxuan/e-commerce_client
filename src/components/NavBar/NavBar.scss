@@ -26,7 +26,7 @@
         justify-content: center;
 
         &--input {
-            height: 22px;
+            height: 26px;
             padding: 10px;
             border: none;
             width: 100%;
@@ -34,10 +34,10 @@
             border-radius: 1px;
             width: 50%;
             transition: all 1s ease-in;
-            background-color: rgba(white, 0.7);
+            background-color: rgba(white, 1);
         }
         &--input:hover{
-          background-color: white;
+               background-color: white;
         }
         &--input:focus {
             width: 70%;
@@ -50,7 +50,7 @@
 
         &--icon {
             padding: 5px;
-            height: 22px !important;
+            height: 26px !important;
             background-color: $color-dark-yellow;
         }
     }

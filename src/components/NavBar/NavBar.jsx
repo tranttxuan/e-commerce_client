@@ -12,7 +12,7 @@ function NavBar() {
     const handleAuthentication = (even) => {};
 
     return (
-        <div className="header">
+        <header className="header">
             <Link to="/" className="header__logo">
                 <OpenWithIcon />
                 <h1>aMaZ</h1>
@@ -60,7 +60,7 @@ function NavBar() {
                     </div>
                 </Link>
             </div>
-        </div>
+        </header>
     );
 }
 
