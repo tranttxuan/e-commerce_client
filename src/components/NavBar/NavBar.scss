@@ -1,0 +1,90 @@
+@import "../../styles/base";
+
+.header {
+    height: 60px;
+    background-color: #131921;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    @include flex-row;
+
+    &__logo {
+        width: 100px;
+        margin: 0 $margin-primary;
+        color: $color-dark-yellow !important;
+        @include flex-row;
+
+        & > h1 {
+            margin-left: 10px;
+        }
+    }
+
+    &__search {
+        @include flex-row;
+        flex: 1;
+        border-radius: 24px;
+        justify-content: center;
+
+        &--input {
+            height: 22px;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            outline: 0;
+            border-radius: 1px;
+            width: 50%;
+            transition: all 1s ease-in;
+            background-color: rgba(white, 0.7);
+        }
+        &--input:hover{
+          background-color: white;
+        }
+        &--input:focus {
+            width: 70%;
+            background-color: white;
+        }
+
+        & button {
+            @include reset;
+        }
+
+        &--icon {
+            padding: 5px;
+            height: 22px !important;
+            background-color: $color-dark-yellow;
+        }
+    }
+
+    &__nav {
+        @include flex-row;
+        justify-content: space-evenly;
+
+        //    @include respond(phone){
+        //     display: none;
+        //     }
+    }
+    &__option {
+        @include flex-column;
+        align-items: flex-start !important;
+        color: white;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    &__optionLineOne {
+        @include reset;
+        font-size: 10px !important;
+    }
+
+    &__optionLineTwo {
+        @include reset;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    &__optionBasket {
+        @include flex-row;
+        color: white;
+        margin-right: 10px;
+        
+    }
+}
