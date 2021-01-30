@@ -1,0 +1,8 @@
+@import "../styles/base";
+
+.one-product{
+     &__back{
+          @include flex-row;
+          font-size: 13px;
+     }
+}

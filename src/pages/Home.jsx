@@ -1,7 +1,7 @@
 import React from "react";
 import Banner from "../components/Banner/Banner";
-import ListProducts from "../components/ListProducts/ListProducts";
 import NavBar from "../components/NavBar/NavBar";
+import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
 import "./Home.scss";
 
 function Home() {
@@ -10,7 +10,7 @@ function Home() {
             <NavBar />
             <div className="home__container">
                 <Banner />
-                <ListProducts />
+                <ProductsGrid />
             </div>
         </div>
     );

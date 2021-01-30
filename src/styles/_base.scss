@@ -4,13 +4,10 @@ $color-light-yellow: #f0c14b;
 
 //Margin
 $margin-primary: 20px;
-$margin-medium:15px;
+$margin-medium: 15px;
 
 //Padding
 $padding-primary: 5px 10px;
-
-
-
 
 *,
 *::after,
@@ -25,9 +22,6 @@ a {
     color: inherit;
     margin: 0;
     padding: 0;
-}
-a:hover {
-    color: #cd9042;
 }
 
 //Mixins
@@ -50,29 +44,35 @@ a:hover {
     text-transform: none !important;
 }
 
-@mixin btn {
-    background:linear-gradient(
-        rgba($color-light-yellow,0.3) 30%, 
-        rgba($color-light-yellow,0.6) 60%, 
-        rgba($color-light-yellow, 1) 100%);
-    border: 1px solid;
-    margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
-    color: #111;
-    padding: 2px 6px!important;
 
-    &:hover{
-        background: $color-light-yellow!important;
-    }
-    
-}
-
-@mixin rating {
-    & *{
+.rating {
+    & * {
         font-size: 15px;
     }
 }
 
+//GENERAL CLASSES
+.btn {
+    @include reset;
+    background: linear-gradient(
+        rgba($color-light-yellow, 0.3) 30%,
+        rgba($color-light-yellow, 0.6) 60%,
+        rgba($color-light-yellow, 1) 100%
+    );
+    border: 1px solid !important;
+    border-color: #a88734 #9c7e31 #846a29 !important;
+    color: #111;
+    font-size: 12px !important;
+    padding: 2px 6px !important;
+
+    &:hover {
+        background: $color-light-yellow !important;
+    }
+}
+
+.row{
+    
+}
 
 
 //MEDIA QUERY MANAGER

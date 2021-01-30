@@ -21,27 +21,43 @@ export default {
      //*******/ 
      signup(userInfo) {
           return service
-                .post("/auth/signup", userInfo)
-                .then((res) => res.data)
-                .catch(errorHandler);
-    },
+               .post("/auth/signup", userInfo)
+               .then((res) => res.data)
+               .catch(errorHandler);
+     },
 
-    login(userInfo) {
+     login(userInfo) {
           return service
-                .post("/auth/login", userInfo)
-                .then((res) => res.data)
-                .catch(errorHandler);
-    },
+               .post("/auth/login", userInfo)
+               .then((res) => res.data)
+               .catch(errorHandler);
+     },
 
-    logout() {
+     logout() {
           return service.delete("/auth/logout").catch(errorHandler);
-    },
+     },
 
-    isLoggedIn() {
+     isLoggedIn() {
           return service
-                .get("/auth/isLoggedIn")
-                .then((res) => res.data)
-                .catch(errorHandler);
-    },
+               .get("/auth/isLoggedIn")
+               .then((res) => res.data)
+               .catch(errorHandler);
+     },
+     //*******/ 
+     // Products
+     //*******/ 
+     fetchProductsData() {
+          return service
+               .get("/products")
+               .then((res) => res.data)
+               .catch(errorHandler);
+     },
+
+     fetchOneProductDetail(idProduct) {
+          return service
+               .get(`/products/${idProduct}`)
+               .then((res) => res.data)
+               .catch(errorHandler);
+     }
 
 }

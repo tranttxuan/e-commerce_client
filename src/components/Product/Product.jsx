@@ -3,7 +3,7 @@ import React from "react";
 import "./Product.scss";
 import Rating from "@material-ui/lab/Rating";
 
-function Product({ name, image, price, rating }) {
+function Product({ name, image, price, rating, numReviews }) {
     return (
         <div className="product">
             <img src={image} alt="image" />
@@ -12,18 +12,19 @@ function Product({ name, image, price, rating }) {
                 {name.length > name.substring(0, 100).length ? (
                     <p>{name.substring(0, 80)}... </p>
                 ) : (
-                    <p> {name} </p>
+                    <p className="product__info--name"> {name} </p>
                 )}
                 <p className="product__price">
-                    <small>$</small> <strong>{price}</strong>
+                    <span>$</span> <strong>{price}</strong>
                 </p>
 
                 <div className="product__rating">
-                    <Rating name="read-only" value={rating} readOnly />
+                    <Rating className="rating" name="half-rating-read" value={rating}  precision={0.5} readOnly /> 
+                    <small>{numReviews} reviews</small>
                 </div>
             </div>
 
-            <Button>Add to Basket</Button>
+            <Button className="btn">Add to Basket</Button>
         </div>
     );
 }

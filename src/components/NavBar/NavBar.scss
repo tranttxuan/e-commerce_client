@@ -38,6 +38,7 @@
         }
         &--input:hover{
                background-color: white;
+               box-shadow:  rgba(240, 46, 170, 0.2) -5px 5px, rgba(240, 46, 170, 0.1) -10px 10px, rgba(240, 46, 170, 0.05) -15px 15px;
         }
         &--input:focus {
             width: 70%;

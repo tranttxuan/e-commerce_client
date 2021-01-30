@@ -10,15 +10,24 @@
     max-height: 400px;
     min-height: 100px;
     max-width: 300px;
-    background-color: white;
     z-index: 1;
     border: 1px #c0c0c0 solid;
     background-color: #f8f8f8;
-    border-radius: 0.5rem;
+    border-radius: 7px;
+    transform: translate(0, 0px) scale(1);
+    transition: all 0.2s ease-in;
+
+    &:hover {
+        transform: translate(0, 5px) scale(1.05);
+        font-weight: 500;
+
+        &  .product__info--name{
+            color: $color-dark-yellow;
+        }
+    }
 
     &__info {
         height: 100px;
-        margin-bottom: 15px;
         margin-top: 15px;
         align-self: flex-start;
         width: 100%;
@@ -32,7 +41,8 @@
         width: 100%;
         object-fit: contain;
         mask-border: 15px;
-        margin-top: 15px;
+        margin-top: 5px;
+        transform: scale(1) rotate3d(0px, 0px, 0px);
     }
 
     &__price {
@@ -40,11 +50,12 @@
     }
 
     &__rating {
-        @include rating;
+        @include flex-row;
+
+        & > small {
+            font-size: 13px;
+        }
     }
 
-    & > button {
-        @include reset;
-        @include btn;
-    }
+
 }

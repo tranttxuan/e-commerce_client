@@ -7,7 +7,7 @@ export default {
       image: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/f8a8c973-523a-4218-995d-d372f7c29f22/lakers-mens-nba-t-shirt-Rwp0Wn.jpg',
       price: 60,
       brand: ' Nike',
-      rating: 4.5,
+      rating: 3.5,
       numReviews: 10,
     },
     {
