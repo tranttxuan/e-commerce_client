@@ -6,10 +6,13 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import "./NavBar.scss";
 import { Button, IconButton } from "@material-ui/core";
 import Badge from "@material-ui/core/Badge";
+import { useSelector } from "react-redux";
 
 function NavBar() {
     const [searchValue, setSearchValue] = useState("");
     const handleAuthentication = (even) => {};
+    const cart = useSelector(state => state.cart);
+    const {cartItems }= cart;
 
     return (
         <header className="header">
@@ -53,7 +56,7 @@ function NavBar() {
                 <Link to="/checkout">
                     <div className="header__optionBasket">
                         <IconButton color="inherit">
-                            <Badge badgeContent={4} color="primary">
+                            <Badge badgeContent={cartItems.length > 0 ? cartItems.length :0 } color="primary">
                                 <ShoppingBasketIcon />
                             </Badge>
                         </IconButton>

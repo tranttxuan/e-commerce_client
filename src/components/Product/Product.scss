@@ -50,7 +50,6 @@
     }
 
     &__rating {
-        @include flex-row;
 
         & > small {
             font-size: 13px;
