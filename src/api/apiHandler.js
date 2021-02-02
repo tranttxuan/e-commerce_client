@@ -1,4 +1,5 @@
 import axios from "axios";
+import { detailsOrder } from "../actions/orderActions";
 
 const service = axios.create({
      baseURL: process.env.REACT_APP_BACKEND_URL + '/api',
@@ -26,7 +27,7 @@ export default {
                .catch(errorHandler);
      },
 
-     login(userInfo) {
+     signin(userInfo) {
           return service
                .post("/auth/login", userInfo)
                .then((res) => res.data)
@@ -34,7 +35,9 @@ export default {
      },
 
      logout() {
-          return service.delete("/auth/logout").catch(errorHandler);
+          return service
+          .delete("/auth/logout")
+          .catch(errorHandler);
      },
 
      isLoggedIn() {
@@ -62,5 +65,17 @@ export default {
      //*******/ 
      // ORDERS
      //*******/
+     createOrder(data){
+          return service
+          .post(`/orders`, data)
+          .then((res) => res.data)
+          .catch(errorHandler);
+     },
 
+     detailsOrder(id){
+          return service
+          .get(`/orders/${id}`)
+          .then((res) => res.data)
+          .catch(errorHandler);
+     }
 }

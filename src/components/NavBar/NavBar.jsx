@@ -6,13 +6,26 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import "./NavBar.scss";
 import { Button, IconButton } from "@material-ui/core";
 import Badge from "@material-ui/core/Badge";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { signout } from "../../actions/userAction";
 
 function NavBar() {
     const [searchValue, setSearchValue] = useState("");
-    const handleAuthentication = (even) => {};
+    const handleAuthentication = (even) => { };
     const cart = useSelector(state => state.cart);
-    const {cartItems }= cart;
+    const { cartItems } = cart;
+
+    const userSignin = useSelector(state => state.userSignin)
+    const { userInfo } = userSignin;
+
+    const dispatch = useDispatch();
+
+    const handleSignOut = () => {
+        console.log("sign out")
+        dispatch(signout())
+    }
+
+    console.log("check userInfo", userInfo)
 
     return (
         <header className="header">
@@ -31,17 +44,23 @@ function NavBar() {
 
             <div className="header__nav">
                 <div className="header__option" onClick={handleAuthentication}>
-                    {/* Hello, {user ? user.email : "Guest"} */}
                     <Button className="header__optionLineOne" color="inherit">
-                        Hello, Guest
+                        Hello, {userInfo ? userInfo.name : "Guest"}
                     </Button>
-
-                    <Link to="/">
-                        {/* {user ? "Sign Out" : "Sign In"} */}
-                        <Button className="header__optionLineTwo" color="inherit">
-                            Login
+                    {userInfo 
+                    ?
+                        <Button className="header__optionLineTwo" color="inherit"
+                            onClick={handleSignOut}>
+                            Sign Out
                         </Button>
-                    </Link>
+                        :
+                         <Link to="/signin">
+                            <Button className="header__optionLineTwo" color="inherit">
+                                Sign In
+                            </Button>
+                        </Link>
+
+                    }
                 </div>
 
                 <div className="header__option">
@@ -56,7 +75,7 @@ function NavBar() {
                 <Link to="/checkout">
                     <div className="header__optionBasket">
                         <IconButton color="inherit">
-                            <Badge badgeContent={cartItems.length > 0 ? cartItems.length :0 } color="primary">
+                            <Badge badgeContent={cartItems.length > 0 ? cartItems.length : 0} color="primary">
                                 <ShoppingBasketIcon />
                             </Badge>
                         </IconButton>

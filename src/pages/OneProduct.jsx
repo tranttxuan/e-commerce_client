@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import "./OneProduct.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { DetailsProduct } from "../actions/productActions";
-import NavBar from "../components/NavBar/NavBar";
-import { Alert, AlertTitle, Skeleton, Rating } from "@material-ui/lab";
-import { Button, CircularProgress, Grid } from "@material-ui/core";
+import { Alert, AlertTitle, Rating } from "@material-ui/lab";
+import { Button, Grid } from "@material-ui/core";
+import LoadingBox from "../components/LoadingBox/LoadingBox";
+import MessageBox from "../components/MessageBox/MessageBox";
 
 function OneProduct(props) {
     const [selectedImage, setSelectedImage] = useState("");
@@ -37,16 +38,11 @@ function OneProduct(props) {
 
     return (
         <Fragment>
-            <NavBar />
+
             {loading ? (
-                <div className="container">
-                    <CircularProgress />
-                    <Skeleton animation="wave" width="100%" height="100%" />
-                </div>
+                <LoadingBox />
             ) : error ? (
-                <Alert variant="filled" severity="error">
-                    {error}
-                </Alert>
+                <MessageBox error={true}>{error}</MessageBox>
             ) : (
                         //INFO
                         <div className="one-product container" >

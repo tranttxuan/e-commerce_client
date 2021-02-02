@@ -6,13 +6,11 @@ import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
 
 function Home() {
     return (
-        <div>
-            <NavBar />
-            <div className="container">
-                <Banner />
-                <ProductsGrid />
-            </div>
+        <div className="container">
+            <Banner />
+            <ProductsGrid />
         </div>
+
     );
 }
 
