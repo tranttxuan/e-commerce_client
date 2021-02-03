@@ -10,11 +10,12 @@ import Signup from './pages/Signup';
 import ShippingAddress from './pages/ShippingAddress';
 import Payment from './pages/Payment';
 import PlaceOrder from './pages/PlaceOrder';
+import Order from './pages/Order';
 
 function App() {
   return (
     <div className="App">
-    <NavBar />
+      <NavBar />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/checkout" component={Home} />
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/shipping" component={ShippingAddress} />
         <Route exact path="/payment" component={Payment} />
         <Route exact path="/placeorder" component={PlaceOrder} />
+        <Route exact path="/order/:orderId" component={Order} />
       </Switch>
     </div>
   );
