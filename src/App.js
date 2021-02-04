@@ -1,5 +1,4 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import OneProduct from './pages/OneProduct';
@@ -11,6 +10,9 @@ import ShippingAddress from './pages/ShippingAddress';
 import Payment from './pages/Payment';
 import PlaceOrder from './pages/PlaceOrder';
 import Order from './pages/Order';
+import OrderHistory from './pages/OrderHistory';
+import Profile from './pages/Profile';
+import PrivateRoute from './components/Auth/PrivateRoute';
 
 function App() {
   return (
@@ -29,6 +31,9 @@ function App() {
         <Route exact path="/payment" component={Payment} />
         <Route exact path="/placeorder" component={PlaceOrder} />
         <Route exact path="/order/:orderId" component={Order} />
+        <Route exact path="/orderhistory" component={OrderHistory} />
+
+        <PrivateRoute exact path="/profile" component={Profile} />
       </Switch>
     </div>
   );

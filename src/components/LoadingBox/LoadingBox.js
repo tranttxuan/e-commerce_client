@@ -6,7 +6,6 @@ function LoadingBox() {
     return (
         <div className="container">
             <CircularProgress />
-            <Skeleton animation="wave" width="100%" height="100%" />
         </div>
     )
 }

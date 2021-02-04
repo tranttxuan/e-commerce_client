@@ -10,7 +10,7 @@ function getSteps() {
 
 function CheckOutSteps(props) {
     const steps = getSteps();
-    const [activeStep, setActiveStep] = React.useState(props.steps);
+    const [activeStep] = React.useState(props.steps);
 
     return (
         <div>

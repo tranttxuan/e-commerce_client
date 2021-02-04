@@ -22,7 +22,7 @@ function OneProduct(props) {
 
     useEffect(() => {
         dispatch(DetailsProduct(productId));
-    }, []);
+    }, [dispatch,productId]);
 
     const changeImage = (image) => {
         setSelectedImage(image);

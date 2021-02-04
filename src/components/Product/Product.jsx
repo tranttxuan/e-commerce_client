@@ -6,7 +6,7 @@ import Rating from "@material-ui/lab/Rating";
 function Product({ name, image, price, rating, numReviews }) {
     return (
         <div className="product">
-            <img src={image} alt="image" />
+            <img src={image} alt={name} />
 
             <div className="product__info">
                 {name.length > name.substring(0, 100).length ? (

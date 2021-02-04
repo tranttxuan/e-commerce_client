@@ -37,7 +37,7 @@ function Signup(props) {
         if (userInfo) {
             props.history.push(redirect)
         }
-    }, [userInfo])
+    }, [props.history,redirect, userInfo])
     return (
         <div>
             <form className="form-auth" onSubmit={submitHandler}>

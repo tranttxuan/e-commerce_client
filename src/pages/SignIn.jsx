@@ -1,4 +1,4 @@
-import { Button, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { signin } from '../actions/userAction'
@@ -28,7 +28,7 @@ function SignIn(props) {
         if (userInfo) {
             props.history.push(redirect)
         }
-    }, [userInfo])
+    }, [redirect,props.history, userInfo])
 
     return (
         <div>

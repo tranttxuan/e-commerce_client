@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import OpenWithIcon from "@material-ui/icons/OpenWith";
 import SearchIcon from "@material-ui/icons/Search";
@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../../actions/userAction";
 
 function NavBar() {
-    const [searchValue, setSearchValue] = useState("");
+    // const [searchValue, setSearchValue] = useState("");
     const handleAuthentication = (even) => { };
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
@@ -47,14 +47,14 @@ function NavBar() {
                     <Button className="header__optionLineOne" color="inherit">
                         Hello, {userInfo ? userInfo.name : "Guest"}
                     </Button>
-                    {userInfo 
-                    ?
+                    {userInfo
+                        ?
                         <Button className="header__optionLineTwo" color="inherit"
                             onClick={handleSignOut}>
                             Sign Out
                         </Button>
                         :
-                         <Link to="/signin">
+                        <Link to="/signin">
                             <Button className="header__optionLineTwo" color="inherit">
                                 Sign In
                             </Button>
@@ -67,9 +67,11 @@ function NavBar() {
                     <Button className="header__optionLineOne" color="inherit">
                         Return
                     </Button>
-                    <Button className="header__optionLineTwo" color="inherit">
-                        & Orders
-                    </Button>
+                    <Link to="/orderhistory">
+                        <Button className="header__optionLineTwo" color="inherit">
+                            & Orders
+                        </Button>
+                    </Link>
                 </div>
 
                 <Link to="/checkout">

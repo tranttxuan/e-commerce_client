@@ -16,7 +16,7 @@ function PlaceOrder(props) {
 
     const orderCreate = useSelector((state) => state.orderCreate);
     const { loading, success, error, order } = orderCreate;
-
+console.log("check success", success)
     //calculate total price
     const toPrice = (number) => Number(number.toFixed(2))
     cart.itemsPrice = toPrice(cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0));
@@ -31,11 +31,12 @@ function PlaceOrder(props) {
     }
 
     useEffect(() => {
+        console.log("check success", success)
         if (success) {
             props.history.push(`/order/${order._id}`)
-            dispatch({ type: ORDER_CREATE_RESET})
+            dispatch({ type: ORDER_CREATE_RESET })
         }
-    }, [success])
+    }, [props.history, dispatch, success])
     return (
         <div className="container">
             <CheckOutSteps steps={3} />

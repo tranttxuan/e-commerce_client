@@ -1,4 +1,4 @@
-import { Button, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import CheckOutSteps from '../components/CheckOutSteps/CheckOutSteps'
 import LoadingBox from '../components/LoadingBox/LoadingBox';
 import MessageBox from '../components/MessageBox/MessageBox';
 import { PayPalButton } from "react-paypal-button-v2";
+import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 function Order(props) {
     const orderId = props.match.params.orderId;
@@ -21,7 +22,8 @@ function Order(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!order || successPay || order && order._id !== orderId) {
+        if (!order || successPay || (order && order._id !== orderId)) {
+            dispatch({ type: ORDER_PAY_RESET })
             dispatch(detailsOrder(orderId))
         } else {
             if (!order.isPaid) {
@@ -45,7 +47,7 @@ function Order(props) {
             }
         }
 
-    }, [order, orderId, dispatch])
+    }, [order, orderId,successPay , dispatch])
 
 
     const successPaymentHandler = (paymentResults) => {
@@ -53,8 +55,9 @@ function Order(props) {
     }
 
     return (
-        loading ? <LoadingBox /> :
-            error ? <MessageBox error={true}>{error}</MessageBox> : <div className="container">
+        loading ? <LoadingBox /> : error
+            ? <MessageBox error={true}>{error}</MessageBox>
+            : <div className="container">
                 <CheckOutSteps steps={3} />
                 <div>
                     <h1>Order {order._id}</h1>

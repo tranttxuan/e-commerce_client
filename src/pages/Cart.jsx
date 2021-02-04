@@ -1,11 +1,10 @@
 import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../actions/cartAction';
-import { Button, CircularProgress, Grid } from "@material-ui/core";
+import { Button,  Grid } from "@material-ui/core";
 import { Alert } from '@material-ui/lab';
 import { Link } from 'react-router-dom';
 import "./Cart.scss";
-import NavBar from '../components/NavBar/NavBar';
 
 
 function Cart(props) {

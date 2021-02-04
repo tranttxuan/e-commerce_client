@@ -1,5 +1,4 @@
 import axios from "axios";
-import { detailsOrder, payOrder } from "../actions/orderActions";
 
 const service = axios.create({
      baseURL: process.env.REACT_APP_BACKEND_URL + '/api',
@@ -46,6 +45,20 @@ export default {
                .then((res) => res.data)
                .catch(errorHandler);
      },
+
+     detailsUser(id){
+          return service
+          .get(`/auth/${id}`)
+          .then((res) => res.data)
+          .catch(errorHandler);
+     },
+
+     updateUserProfile(userData){
+          return service
+          .patch(`/auth/profile`,userData)
+          .then((res) => res.data)
+          .catch(errorHandler);
+     },
      //*******/ 
      // Products
      //*******/ 
@@ -77,6 +90,13 @@ export default {
                .get(`/orders/${id}`)
                .then((res) => res.data)
                .catch(errorHandler);
+     },
+
+     getListOrders(){
+          return service
+          .get(`/orders/mine`)
+          .then((res) => res.data)
+          .catch(errorHandler);
      },
      //*******/ 
      // PAYPAL

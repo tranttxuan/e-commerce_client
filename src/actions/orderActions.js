@@ -1,6 +1,6 @@
 import apiHandler from "../api/apiHandler"
 import { CART_EMPTY } from "../constants/cartConstants"
-import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS } from "../constants/orderConstants"
+import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_MINE_LIST_REQUEST, ORDER_MINE_LIST_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS } from "../constants/orderConstants"
 
 export const createOrder = (order) => (dispatch, getState) => {
     dispatch({
@@ -52,7 +52,7 @@ export const payOrder = (order, paymentResult) => (dispatch, getState) => {
         type: ORDER_PAY_REQUEST,
         payload: { order, paymentResult }
     })
-    
+
     apiHandler.payOrder(order._id)
         .then(data => {
             dispatch({
@@ -66,4 +66,23 @@ export const payOrder = (order, paymentResult) => (dispatch, getState) => {
                 payload: error.message
             })
         })
+}
+
+export const listOrderMine = () => (dispatch, getState) => {
+    dispatch({ type: ORDER_MINE_LIST_REQUEST });
+
+    apiHandler.getListOrders()
+    .then(data => {
+        console.log("go here", data)
+        dispatch({
+            type: ORDER_MINE_LIST_SUCCESS,
+            payload:data
+        })
+    })
+    .catch(error => {
+        dispatch({
+            type: ORDER_PAY_FAIL,
+            payload: error.message
+        })
+    })
 }

@@ -14,7 +14,7 @@ function ProductsGrid() {
 
      useEffect(() => {
           dispatch(ListProducts())
-     }, []);
+     }, [dispatch]);
 
      return (
 
