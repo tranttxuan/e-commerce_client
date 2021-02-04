@@ -13,6 +13,7 @@ import Order from './pages/Order';
 import OrderHistory from './pages/OrderHistory';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/Auth/PrivateRoute';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
 
         <PrivateRoute exact path="/profile" component={Profile} />
       </Switch>
+      <Footer/>
     </div>
   );
 }

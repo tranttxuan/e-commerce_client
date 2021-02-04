@@ -15,13 +15,15 @@
     background-color: #f8f8f8;
     border-radius: 7px;
     transform: translate(0, 0px) scale(1);
-    transition: all 0.2s ease-in;
+    transition: all 0.2s ease;
 
     &:hover {
-        transform: translate(0, 5px) scale(1.05);
+        transform: translate(0, -2px) scale(1.05);
+        box-shadow: rgba(17, 17, 26, 0.2) 0px 4px 12px, rgba(17, 17, 26, 0.2) 0px 8px 26px,
+            rgba(17, 17, 26, 0.2) 0px 12px 40px;
         font-weight: 500;
 
-        &  .product__info--name{
+        & .product__info--name {
             color: $color-dark-yellow;
         }
     }
@@ -50,11 +52,8 @@
     }
 
     &__rating {
-
         & > small {
             font-size: 13px;
         }
     }
-
-
 }

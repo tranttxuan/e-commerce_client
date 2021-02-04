@@ -2,29 +2,44 @@
 
 .header {
     height: 60px;
-    background-color: #131921;
+    background-color: $color-dark-blue;
     position: sticky;
     top: 0;
     z-index: 100;
     @include flex-row;
+
+    @include respond(tab-port) {
+        justify-content: space-between;
+    }
 
     &__logo {
         width: 100px;
         margin: 0 $margin-primary;
         color: $color-dark-yellow !important;
         @include flex-row;
+        transform: translate(0px, 0px);
+        transition: all 0.1s;
 
         & > h1 {
             margin-left: 10px;
         }
+        &:hover {
+            transform: translate(0.5px, -2px) scale(1.05);
+            color: $color-light-yellow !important;
+        }
     }
 
     &__search {
-        @include flex-row;
         flex: 1;
+        @include flex-row;
         border-radius: 24px;
         justify-content: center;
-
+        @include respond(tab-port) {
+            order: 5;
+            position: fixed;
+            top: 60px;
+            width: 100% !important;
+        }
         &--input {
             height: 26px;
             padding: 10px;
@@ -35,14 +50,22 @@
             width: 50%;
             transition: all 1s ease-in;
             background-color: rgba(white, 1);
+            @include respond(tab-port) {
+                width: 100% !important;
+            }
         }
-        &--input:hover{
-               background-color: white;
-               box-shadow:  rgba(240, 46, 170, 0.2) -5px 5px, rgba(240, 46, 170, 0.1) -10px 10px, rgba(240, 46, 170, 0.05) -15px 15px;
+        &--input:hover {
+            background-color: white;
+            box-shadow: rgba(240, 46, 170, 0.2) -5px 5px, rgba(240, 46, 170, 0.1) -10px 10px,
+                rgba(240, 46, 170, 0.05) -15px 15px;
         }
+
         &--input:focus {
             width: 70%;
             background-color: white;
+            @include respond(tab-port) {
+                width: 100% !important;
+            }
         }
 
         & button {
@@ -59,10 +82,6 @@
     &__nav {
         @include flex-row;
         justify-content: space-evenly;
-
-        //    @include respond(phone){
-        //     display: none;
-        //     }
     }
     &__option {
         @include flex-column;
@@ -70,10 +89,20 @@
         color: white;
         margin-left: 10px;
         margin-right: 10px;
+        @include respond(tab-port) {
+            margin-left: 3px;
+            margin-right: 3px;
+            & * {
+                line-height: 1;
+            }
+        }
     }
     &__optionLineOne {
         @include reset;
         font-size: 10px !important;
+        @include respond(phone) {
+            display: none !important;
+        }
     }
 
     &__optionLineTwo {
@@ -86,6 +115,22 @@
         @include flex-row;
         color: white;
         margin-right: 10px;
-        
+        @include respond(phone) {
+            margin-right: 3px;
+        }
+    }
+}
+
+#customized-menu {
+    top: 44px !important;
+
+    & ul {
+        background: linear-gradient(
+            rgba($color-light-yellow, 0.3) 30%,
+            rgba($color-light-yellow, 0.6) 60%,
+            rgba($color-light-yellow, 1) 100%
+        );
+    }
+    & li:focus {
     }
 }

@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import OpenWithIcon from "@material-ui/icons/OpenWith";
 import SearchIcon from "@material-ui/icons/Search";
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import "./NavBar.scss";
-import { Button, IconButton } from "@material-ui/core";
+import { Button, IconButton, Menu, MenuItem } from "@material-ui/core";
 import Badge from "@material-ui/core/Badge";
 import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../../actions/userAction";
 
-function NavBar() {
+
+
+function NavBar(props) {
+    const [anchorEl, setAnchorEl] = useState(null);
     // const [searchValue, setSearchValue] = useState("");
     const handleAuthentication = (even) => { };
     const cart = useSelector(state => state.cart);
@@ -25,7 +29,13 @@ function NavBar() {
         dispatch(signout())
     }
 
-    console.log("check userInfo", userInfo)
+    const handleDropDown = (event) => {
+        setAnchorEl(event.currentTarget);
+    }
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
 
     return (
         <header className="header">
@@ -47,29 +57,54 @@ function NavBar() {
                     <Button className="header__optionLineOne" color="inherit">
                         Hello, {userInfo ? userInfo.name : "Guest"}
                     </Button>
-                    {userInfo
-                        ?
+                    <div>
                         <Button className="header__optionLineTwo" color="inherit"
-                            onClick={handleSignOut}>
-                            Sign Out
+                            onClick={handleDropDown}>
+                            Your account <ArrowDropDownIcon/>
                         </Button>
-                        :
-                        <Link to="/signin">
-                            <Button className="header__optionLineTwo" color="inherit">
-                                Sign In
-                            </Button>
-                        </Link>
+                        <Menu
+                            id="customized-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
 
-                    }
+                        >
+                            {userInfo &&
+                                <MenuItem>
+                                    <Button className="header__optionLineTwo" color="inherit">
+                                        <Link to="/profile" className="header__optionLineTwo">Profile</Link>
+                                    </Button>
+                                </MenuItem>}
+
+                            <MenuItem>
+                                {userInfo
+                                    ?
+                                    <Button className="header__optionLineTwo" color="inherit"
+                                        onClick={handleSignOut}>
+                                        Sign Out
+                                    </Button>
+                                    :
+                                    <Button className="header__optionLineTwo" color="inherit">
+                                        <Link to="/signin">Sign In</Link>
+                                    </Button>
+
+
+                                }
+                            </MenuItem>
+
+                        </Menu>
+                    </div>
+
                 </div>
 
                 <div className="header__option">
                     <Button className="header__optionLineOne" color="inherit">
-                        Return
+                        Return & 
                     </Button>
                     <Link to="/orderhistory">
                         <Button className="header__optionLineTwo" color="inherit">
-                            & Orders
+                            Orders
                         </Button>
                     </Link>
                 </div>
