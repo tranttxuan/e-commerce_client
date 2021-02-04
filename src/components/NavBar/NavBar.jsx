@@ -45,7 +45,7 @@ function NavBar(props) {
             </Link>
 
             <div className="header__search">
-                <input className="header__search--input" type="text" />
+                <input className="header__search--input" type="text" placeholder="Search ..."/>
                 <Button>
                     {" "}
                     <SearchIcon className="header__search--icon" />

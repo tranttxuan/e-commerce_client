@@ -18,8 +18,8 @@ function Footer() {
                 </h2>
                 <p className='footer-subscription-text'>
                     You can unsubscribe at any time.
-          </p>
-                <div className='input-areas'>
+                 </p>
+                <div className='footer-input-areas'>
                     <form>
                         <input
                             className='footer-input'
@@ -27,7 +27,7 @@ function Footer() {
                             type='email'
                             placeholder='Your Email'
                         />
-                        <Button buttonStyle='btn--outline'>Subscribe</Button>
+                        <Button type="submit" className="btn">Subscribe</Button>
                     </form>
                 </div>
             </section>
@@ -70,11 +70,11 @@ function Footer() {
                 <div className='social-media-wrap'>
                     <div className='footer-logo'>
                         <Link to='/' className='social-logo'>
-                            <OpenWithIcon className='navbar-icon' />
+                            <OpenWithIcon className='navbar-icon' /> {'\u00A0'}
                             aMaZ
                          </Link>
                     </div>
-                    <small className='website-rights'>LAVISH © 2020</small>
+                    <small className='website-rights'>TRAN T.T Xuan © 2021</small>
                     <div className='social-icons'>
                         <Link
                             className='social-icon-link'
@@ -94,9 +94,7 @@ function Footer() {
                         </Link>
                         <Link
                             className='social-icon-link'
-                            to={
-                                '//www.youtube.com/channel/UCsKsymTY_4BYR-wytLjex7A?view_as=subscriber'
-                            }
+                            to="/"
                             target='_blank'
                             aria-label='Youtube'
                         >
