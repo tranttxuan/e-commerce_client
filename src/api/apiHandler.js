@@ -46,18 +46,18 @@ export default {
                .catch(errorHandler);
      },
 
-     detailsUser(id){
+     detailsUser(id) {
           return service
-          .get(`/auth/${id}`)
-          .then((res) => res.data)
-          .catch(errorHandler);
+               .get(`/auth/${id}`)
+               .then((res) => res.data)
+               .catch(errorHandler);
      },
 
-     updateUserProfile(userData){
+     updateUserProfile(userData) {
           return service
-          .patch(`/auth/profile`,userData)
-          .then((res) => res.data)
-          .catch(errorHandler);
+               .patch(`/auth/profile`, userData)
+               .then((res) => res.data)
+               .catch(errorHandler);
      },
      //*******/ 
      // Products
@@ -68,13 +68,21 @@ export default {
                .then((res) => res.data)
                .catch(errorHandler);
      },
-
+     categoryList() {
+          return service
+               .get(`/products/categories`)
+               .then((res) => res.data)
+               .catch(errorHandler);
+     },
+     
      fetchOneProductDetail(idProduct) {
           return service
                .get(`/products/${idProduct}`)
                .then((res) => res.data)
                .catch(errorHandler);
      },
+
+
      //*******/ 
      // ORDERS
      //*******/
@@ -92,11 +100,11 @@ export default {
                .catch(errorHandler);
      },
 
-     getListOrders(){
+     getListOrders() {
           return service
-          .get(`/orders/mine`)
-          .then((res) => res.data)
-          .catch(errorHandler);
+               .get(`/orders/mine`)
+               .then((res) => res.data)
+               .catch(errorHandler);
      },
      //*******/ 
      // PAYPAL
@@ -108,11 +116,11 @@ export default {
                .catch(errorHandler);
      },
 
-     payOrder(idOrder){
+     payOrder(idOrder) {
           return service
-          .patch(`/orders/${idOrder}/pay`)
-          .then((res) => res.data)
-          .catch(errorHandler);
+               .patch(`/orders/${idOrder}/pay`)
+               .then((res) => res.data)
+               .catch(errorHandler);
      }
 
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import OpenWithIcon from "@material-ui/icons/OpenWith";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -14,7 +14,7 @@ import { signout } from "../../actions/userAction";
 
 function NavBar(props) {
     const [anchorEl, setAnchorEl] = useState(null);
-    // const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState("");
     const handleAuthentication = (even) => { };
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
@@ -23,6 +23,14 @@ function NavBar(props) {
     const { userInfo } = userSignin;
 
     const dispatch = useDispatch();
+
+    const handleSearch = () => {
+        props.history.push(`/search/name/${searchValue}`)
+        setTimeout(() => {
+            setSearchValue("")
+        }, 1000);
+    }
+
 
     const handleSignOut = () => {
         console.log("sign out")
@@ -45,11 +53,17 @@ function NavBar(props) {
             </Link>
 
             <div className="header__search">
-                <input className="header__search--input" type="text" placeholder="Search ..."/>
-                <Button>
-                    {" "}
+                <input
+                    className="header__search--input"
+                    type="text"
+                    placeholder="Search ..."
+                    value={searchValue}
+                    onChange={e => setSearchValue(e.target.value)} />
+                <Button onClick={handleSearch}>
                     <SearchIcon className="header__search--icon" />
                 </Button>
+
+
             </div>
 
             <div className="header__nav">
@@ -60,7 +74,7 @@ function NavBar(props) {
                     <div>
                         <Button className="header__optionLineTwo" color="inherit"
                             onClick={handleDropDown}>
-                            Your account <ArrowDropDownIcon/>
+                            Your account <ArrowDropDownIcon />
                         </Button>
                         <Menu
                             id="customized-menu"
@@ -71,22 +85,34 @@ function NavBar(props) {
 
                         >
                             {userInfo &&
-                                <MenuItem>
-                                    <Button className="header__optionLineTwo" color="inherit">
-                                        <Link to="/profile" className="header__optionLineTwo">Profile</Link>
-                                    </Button>
-                                </MenuItem>}
+                                <>
+                                    <MenuItem>
+                                        <Button color="inherit">
+                                            <Link className="header__optionLineTwo"
+                                                to="/profile" >Profile</Link>
+                                        </Button>
+                                    </MenuItem>
+
+                                    <MenuItem>
+                                        <Button color="inherit">
+                                            <Link className="header__optionLineTwo"
+                                                to="/orderhistory">Orders</Link>
+                                        </Button>
+                                    </MenuItem>
+                                </>
+                            }
 
                             <MenuItem>
                                 {userInfo
                                     ?
-                                    <Button className="header__optionLineTwo" color="inherit"
+                                    <Button color="inherit"
                                         onClick={handleSignOut}>
-                                        Sign Out
+                                        <Link className="header__optionLineTwo"> Sign Out</Link>
                                     </Button>
                                     :
-                                    <Button className="header__optionLineTwo" color="inherit">
-                                        <Link to="/signin">Sign In</Link>
+                                    <Button color="inherit">
+                                        <Link className="header__optionLineTwo"
+                                            to="/signin" >Sign In</Link>
                                     </Button>
 
 
@@ -96,17 +122,6 @@ function NavBar(props) {
                         </Menu>
                     </div>
 
-                </div>
-
-                <div className="header__option">
-                    <Button className="header__optionLineOne" color="inherit">
-                        Return & 
-                    </Button>
-                    <Link to="/orderhistory">
-                        <Button className="header__optionLineTwo" color="inherit">
-                            Orders
-                        </Button>
-                    </Link>
                 </div>
 
                 <Link to="/cart">
@@ -123,4 +138,4 @@ function NavBar(props) {
     );
 }
 
-export default NavBar;
+export default withRouter(NavBar);

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./OneProduct.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { DetailsProduct } from "../actions/productActions";
-import { Alert, AlertTitle, Rating } from "@material-ui/lab";
+import { Rating } from "@material-ui/lab";
 import { Button, Grid } from "@material-ui/core";
 import LoadingBox from "../components/LoadingBox/LoadingBox";
 import MessageBox from "../components/MessageBox/MessageBox";

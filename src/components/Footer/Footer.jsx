@@ -56,6 +56,7 @@ function Footer() {
                         <Link to='/'>Ambassadors</Link>
                         <Link to='/'>Agency</Link>
                         <Link to='/'>Influencer</Link>
+                        <Link>&nbsp;</Link>
                     </div>
                     <div className='footer-link-items'>
                         <h2>Social Media</h2>
@@ -71,7 +72,7 @@ function Footer() {
                     <div className='footer-logo'>
                         <Link to='/' className='social-logo'>
                             <OpenWithIcon className='navbar-icon' /> {'\u00A0'}
-                            aMaZ
+                            <h1>aMaZ</h1>
                          </Link>
                     </div>
                     <small className='website-rights'>TRAN T.T Xuan © 2021</small>

@@ -1,0 +1,19 @@
+@import "../styles/base";
+
+.search-page {
+    margin-top: 50px;
+
+    &__header {
+        @include flex-row;
+        justify-content: space-between !important;
+        width: 100%;
+        margin-bottom: 50px;
+        
+        & > div:last-of-type {
+            min-width: 120px;
+            & > div:first-child {
+                width: 100%;
+            }
+        }
+    }
+}

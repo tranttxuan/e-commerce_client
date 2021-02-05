@@ -36,7 +36,7 @@ console.log("check success", success)
             props.history.push(`/order/${order._id}`)
             dispatch({ type: ORDER_CREATE_RESET })
         }
-    }, [props.history, dispatch, success])
+    }, [props.history, dispatch, success, order._id])
     return (
         <div className="container">
             <CheckOutSteps steps={3} />
