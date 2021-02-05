@@ -31,8 +31,8 @@ function SignIn(props) {
     }, [redirect,props.history, userInfo])
 
     return (
-        <div>
-            <form className="form-auth" onSubmit={submitHandler}>
+        <div className="form-medium">
+            <form  onSubmit={submitHandler}>
                 <div>
                     <h1>Sign In</h1>
                 </div>

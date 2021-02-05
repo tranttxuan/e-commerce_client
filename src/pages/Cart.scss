@@ -1,20 +1,9 @@
 @import "../styles/base";
 
 .cart-page {
-    & img {
-        width: 50px;
-        height: 50px;
-    }
-
-    & table {
-        & .go-shopping:hover {
-            color: $color-dark-yellow;
-            font-weight: 500;
-        }
-
-    }
-    & .checkout {
-        padding: 1;
-        border: 1px solid black;
+    margin: 50px auto;
+    min-height: 70vh;
+    &>h1{
+        margin-bottom: 30px;
     }
 }

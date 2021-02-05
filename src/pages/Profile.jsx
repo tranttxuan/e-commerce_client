@@ -47,8 +47,8 @@ function Profile(props) {
     }
 console.log("check value", email, name)
     return (
-        <div>
-            <form className="" onSubmit={submitHandler}>
+        <div className="form-medium">
+            <form  onSubmit={submitHandler}>
                 <h1>User Profile</h1>
                 {loading ? <LoadingBox />
                     : error ? <MessageBox error={true}>{error}</MessageBox>

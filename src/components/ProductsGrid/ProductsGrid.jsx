@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import {Skeleton, Alert} from '@material-ui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { ListProducts } from "../../actions/productActions";
-// import "./ProductsGrid.scss"
+import "./ProductsGrid.scss"
 import { CircularProgress, Grid } from '@material-ui/core';
 
 function ProductsGrid() {

@@ -1,0 +1,9 @@
+.payment{
+    & form{
+        
+    }
+    & form >div span:first-of-type{
+       width: 10px;
+       padding-left: 20px;
+    }
+}

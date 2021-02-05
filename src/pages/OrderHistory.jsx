@@ -16,7 +16,7 @@ function OrderHistory(props) {
     }, [dispatch])
 
     return (
-        <div>
+        <div className="container min-height">
             <h1> Order History</h1>
             {loading ? <LoadingBox />
                 : error ? < MessageBox error={true}>{error}</MessageBox>
@@ -37,7 +37,7 @@ function OrderHistory(props) {
                                 {orders.map(order => (
                                     <tr key={order._id}>
                                         <td>{order._id}</td>
-                                        <td>{order.createdAt}</td>
+                                        <td>{order.createdAt.substring(0, 10)}</td>
                                         <td>{order.totalPrice.toFixed(2)}</td>
                                         <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
                                         <td>{order.isDelivered
@@ -45,7 +45,7 @@ function OrderHistory(props) {
                                             : "No"
                                         }</td>
                                         <td>
-                                            <Button type="button" className="btn-extra"
+                                            <Button type="button" className="btn btn-extra"
                                                 onClick={() => { props.history.push(`/order/${order._id}`) }}
                                             >Details</Button>
                                         </td>

@@ -40,9 +40,9 @@ console.log("check success", success)
     return (
         <div className="container">
             <CheckOutSteps steps={3} />
-            <Grid container direction="row" justify="space-evenly">
-                <Grid item >
-                    <div>
+            <Grid container spacing={5} justify="space-evenly">
+                <Grid item xs={12} sm={6} md={9}>
+                    <div className="box">
                         <h2>Shipping</h2>
                         <p><strong>Name: </strong>{cart.shippingAddress.fullName}</p>
                         <p><strong>Address: </strong> {cart.shippingAddress.address},
@@ -51,12 +51,12 @@ console.log("check success", success)
 
                     </div>
 
-                    <div>
+                    <div className="box">
                         <h2>Payment</h2>
                         <p><strong>Method: </strong> {cart.paymentMethod}</p>
                     </div>
 
-                    <div>
+                    <div className="box">
                         <h2>Order Items</h2>
                         <table>
                             <tbody>
@@ -78,27 +78,27 @@ console.log("check success", success)
                     </div>
                 </Grid>
 
-                <Grid item>
-                    <div>
+                <Grid item xs={12} sm={6} md={3} >
+                    <div className="box">
                         <h2>Order summary</h2>
-                        <div>
+                        <div className="box--item">
                             <div>Items</div>
                             <div>${cart.itemsPrice.toFixed(2)}</div>
                         </div>
 
-                        <div>
+                        <div className="box--item">
                             <div>Shipping price</div>
                             <div>${cart.shippingPrice.toFixed(2)}</div>
                         </div>
 
-                        <div>
+                        <div className="box--item">
                             <div>Tax</div>
                             <div>${cart.taxPrice.toFixed(2)}</div>
                         </div>
 
-                        <div>
-                            <div>Order Total</div>
-                            <div>${cart.totalPrice.toFixed(2)}</div>
+                        <div className="box--item">
+                            <div><strong>Order Total</strong></div>
+                            <div><strong>${cart.totalPrice.toFixed(2)}</strong></div>
                         </div>
                         {loading && <LoadingBox />}
                         {error && <MessageBox error={true}>{error}</MessageBox>}

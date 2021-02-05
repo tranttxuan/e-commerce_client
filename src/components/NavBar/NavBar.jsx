@@ -109,7 +109,7 @@ function NavBar(props) {
                     </Link>
                 </div>
 
-                <Link to="/checkout">
+                <Link to="/cart">
                     <div className="header__optionBasket">
                         <IconButton color="inherit">
                             <Badge badgeContent={cartItems.length > 0 ? cartItems.length : 0} color="primary">

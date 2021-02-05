@@ -22,7 +22,7 @@ function OneProduct(props) {
 
     useEffect(() => {
         dispatch(DetailsProduct(productId));
-    }, [dispatch,productId]);
+    }, [dispatch, productId]);
 
     const changeImage = (image) => {
         setSelectedImage(image);
@@ -51,7 +51,7 @@ function OneProduct(props) {
                                  Back to result
                             </Link>
 
-                            <Grid container justify={"space-around"}>
+                            <Grid spacing={3} container justify={"space-around"} className="one-product__wrapper">
                                 <Grid item xs={12} sm={6} >
                                     <div className="one-product__img-prod">
                                         <img
@@ -62,10 +62,10 @@ function OneProduct(props) {
 
                                 </Grid>
 
-                                <Grid item xs={12} sm={6} md={3}>
+                                <Grid item xs={12} sm={6} md={3} >
                                     <ul>
                                         <li>
-                                            <h1>{product.name}</h1>
+                                            <h2>{product.name}</h2>
                                         </li>
 
                                         <li>
@@ -114,7 +114,7 @@ function OneProduct(props) {
 
                                 {/* ORDER  */}
                                 <Grid item xs={12} sm={6} md={3} className="one-product__seller">
-                                    <div>
+                                    <div className="box">
                                         <ul>
                                             <li>
                                                 Seller
@@ -202,9 +202,7 @@ function OneProduct(props) {
                                 <h2 id="reviews">Reviews</h2>
 
                                 {!product.reviews.length && (
-                                    <Alert severity="info">
-                                        <AlertTitle>Info:   No review</AlertTitle>
-                                    </Alert>
+                                    <MessageBox>No review</MessageBox>
                                 )}
 
                                 <ul>
@@ -220,7 +218,7 @@ function OneProduct(props) {
                                     ))}
                                 </ul>
                                 {/* {userInfo?  */}
-                                <form onSubmit={submitHandler}>
+                                <form onSubmit={submitHandler} className="form-medium">
                                     <div>
                                         <h2>Write a customer review</h2>
                                     </div>
@@ -248,10 +246,12 @@ function OneProduct(props) {
                                         />
                                     </div>
 
-
-                                    <Button className="btn" type="submit">
-                                        Submit
+                                    <div>
+                                        <Button className="btn" type="submit">
+                                            Submit
                                     </Button>
+                                    </div>
+
 
 
                                 </form>

@@ -47,7 +47,7 @@ function Order(props) {
             }
         }
 
-    }, [order, orderId,successPay , dispatch])
+    }, [order, orderId, successPay, dispatch])
 
 
     const successPaymentHandler = (paymentResults) => {
@@ -57,15 +57,15 @@ function Order(props) {
     return (
         loading ? <LoadingBox /> : error
             ? <MessageBox error={true}>{error}</MessageBox>
-            : <div className="container">
+            : <div>
                 <CheckOutSteps steps={3} />
-                <div>
-                    <h1>Order {order._id}</h1>
+                <div className="container">
+                    <h2>Order {order._id}</h2>
 
-                    <Grid container direction="row" justify="space-evenly">
-                        <Grid item >
-                            <div>
-                                <h2>Shipping</h2>
+                    <Grid container spacing={5} justify="space-evenly">
+                        <Grid item xs={12} sm={6} md={9} >
+                            <div className="box">
+                                <h3>Shipping</h3>
                                 <p><strong>Name: </strong>{order.shippingAddress.fullName}</p>
                                 <p><strong>Address: </strong> {order.shippingAddress.address},
                             {order.shippingAddress.city}, {order.shippingAddress.postalCode},
@@ -75,16 +75,16 @@ function Order(props) {
                                     : <MessageBox error={true}>Not Delivered</MessageBox>}
                             </div>
 
-                            <div>
-                                <h2>Payment</h2>
+                            <div className="box">
+                                <h3>Payment</h3>
                                 <p><strong>Method: </strong> {order.paymentMethod}</p>
                                 {order.isPaid
                                     ? <MessageBox>Payment at {order.paidAt}</MessageBox>
                                     : <MessageBox error={true}>Not Paid</MessageBox>}
                             </div>
 
-                            <div>
-                                <h2>Order Items</h2>
+                            <div className="box">
+                                <h3>Order Items</h3>
                                 <table>
                                     <tbody>
                                         {order.orderItems.map((item, i) => (
@@ -105,27 +105,27 @@ function Order(props) {
                             </div>
                         </Grid>
 
-                        <Grid item>
-                            <div>
+                        <Grid item xs={12} sm={6} md={3}>
+                            <div  className="box">
                                 <h2>Order summary</h2>
-                                <div>
+                                <div className="box--item">
                                     <div>Items</div>
                                     <div>${order.itemsPrice.toFixed(2)}</div>
                                 </div>
 
-                                <div>
+                                <div className="box--item">
                                     <div>Shipping price</div>
                                     <div>${order.shippingPrice.toFixed(2)}</div>
                                 </div>
 
-                                <div>
+                                <div className="box--item">
                                     <div>Tax</div>
                                     <div>${order.taxPrice.toFixed(2)}</div>
                                 </div>
 
-                                <div>
-                                    <div>Order Total</div>
-                                    <div>${order.totalPrice.toFixed(2)}</div>
+                                <div className="box--item">
+                                    <div><strong>Order Total</strong></div>
+                                    <div><strong>${order.totalPrice.toFixed(2)}</strong></div>
                                 </div>
                                 {!order.isPaid &&
                                     <div>

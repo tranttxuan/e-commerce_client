@@ -34,9 +34,9 @@ function ShippingAddress(props) {
     
 
     return (
-        <div>
+        <div className="container">
             <CheckOutSteps steps={1} />
-            <form className="form-auth" onSubmit={submitHandler}>
+            <form onSubmit={submitHandler}>
                 <div>
                     <h1>Shipping Address</h1>
 

@@ -9,139 +9,6 @@ $margin-medium: 15px;
 //Padding
 $padding-primary: 5px 10px;
 
-*,
-*::after,
-*::before {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-    margin: 0;
-    padding: 0;
-}
-ul li {
-    list-style: none;
-}
-
-//Mixins
-@mixin flex-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-@mixin flex-row {
-    display: flex;
-    align-items: center;
-}
-
-@mixin reset {
-    margin: 0 !important;
-    min-width: 0 !important;
-    padding: 0 !important;
-    text-decoration: none !important;
-    text-transform: none !important;
-}
-
-.rating {
-    @include flex-row;
-    & * {
-        font-size: 15px;
-    }
-}
-
-//GENERAL CLASSES
-.btn {
-    @include reset;
-    background: linear-gradient(
-        rgba($color-light-yellow, 0.3) 30%,
-        rgba($color-light-yellow, 0.6) 60%,
-        rgba($color-light-yellow, 1) 100%
-    );
-    border: 1px solid !important;
-    border-color: #a88734 #9c7e31 #846a29 !important;
-    color: #111;
-    font-size: 12px !important;
-    padding: 2px 6px !important;
-
-    &:hover {
-        background: $color-light-yellow !important;
-    }
-}
-
-.btn-extra {
-    background: white !important;
-}
-//Layout
-.container {
-    @include flex-column;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1500px;
-}
-
-.row {
-    @include flex-row;
-}
-.success {
-    color: green;
-}
-.danger {
-    color: red;
-}
-
-//FORM
-form {
-    @include flex-column;
-    margin: $margin-primary auto;
-    border: 1px solid rgb(158, 155, 155);
-    border-radius: 10px;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px,
-        rgba(17, 17, 26, 0.1) 0px 24px 80px;
-    padding: 4px 50px;
-
-    & * {
-        width: 100%;
-    }
-    & h1 {
-        margin-top: $margin-primary;
-        text-align: center;
-    }
-    & button.btn {
-        width: 30% !important;
-        margin: $margin-medium auto !important;
-        font-size: 14px !important;
-        border-radius: 5px;
-        padding: 5px!important;
-        &:hover{
-            font-weight: 800!important;
-        }
-    }
-    & > div:last-of-type {
-        margin-bottom: $margin-primary;
-        text-align: center;
-        font-size: 13px;
-
-        &:hover > a {
-            color: $color-dark-yellow;
-        }
-    }
-
-    &:hover {
-        box-shadow: rgba(17, 17, 26, 0.2) 0px 8px 24px, rgba(17, 17, 26, 0.2) 0px 16px 56px,
-            rgba(17, 17, 26, 0.2) 0px 24px 80px;
-    }
-}
-
-form.form-auth {
-    max-width: 450px;
-    min-width: 200px;
-}
-
 //MEDIA QUERY MANAGER
 /*
 0 - 600PX: Phone
@@ -180,5 +47,215 @@ ORDER: Base + typography > general layout + grid > page layout > components
         @media only screen and (min-width: 1800px) {
             @content;
         }
+    }
+}
+
+//RESET
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    list-style: none;
+}
+
+//GENERAL CLASSES
+
+//Mixins
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin flex-row {
+    display: flex;
+    align-items: center;
+}
+
+@mixin reset {
+    margin: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+}
+
+.rating {
+    @include flex-row;
+    & * {
+        font-size: 15px;
+    }
+}
+
+//BUTTONS
+.btn {
+    @include reset;
+    background: linear-gradient(
+        rgba($color-light-yellow, 0.3) 30%,
+        rgba($color-light-yellow, 0.6) 60%,
+        rgba($color-light-yellow, 1) 100%
+    );
+    border: 1px solid !important;
+    border-color: #a88734 #9c7e31 #846a29 !important;
+    color: #111;
+    font-size: 12px !important;
+    padding: 2px 6px !important;
+
+    &:hover {
+        background: $color-light-yellow !important;
+    }
+}
+
+.btn-extra {
+    background: white !important;
+}
+
+//Layout
+.container {
+    @include flex-column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    max-width: 1500px;
+    & > h1 {
+        margin: 50px auto;
+    }
+}
+
+.row {
+    @include flex-row;
+}
+.success {
+    color: green;
+}
+.danger {
+    color: red;
+}
+.box {
+    border: 1px solid;
+    display: block;
+    width: 100%;
+    padding: $margin-primary;
+    border-radius: 7px;
+    margin-bottom: $margin-primary;
+
+    &:hover{
+        box-shadow: rgba(17, 17, 26, 0.2) 0px 8px 24px, rgba(17, 17, 26, 0.2) 0px 16px 56px,
+            rgba(17, 17, 26, 0.2) 0px 24px 80px; 
+    }
+
+    &--item{
+        @include flex-row;
+        justify-content: space-between;
+    }
+    & button.btn {
+        margin-top: $margin-medium !important;
+        border-radius: 7px;
+        width: 100%;
+    }
+}
+.min-height {
+    min-height: 70vh;
+}
+//FORM
+form {
+    @include flex-column;
+    margin: $margin-primary auto;
+    border: 1px solid rgb(158, 155, 155);
+    border-radius: 10px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px,
+        rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    padding: 4px 50px;
+
+    @include respond(phone){
+        padding: 4px 10px;
+    
+    }
+
+
+    & * {
+        width: 100%;
+    }
+    & h1 {
+        margin-top: $margin-primary;
+        text-align: center;
+    }
+    & button.btn {
+        width: 30% !important;
+        margin: $margin-medium auto !important;
+        font-size: 14px !important;
+        border-radius: 5px;
+        padding: 5px !important;
+        &:hover {
+            font-weight: 800 !important;
+        }
+    }
+    & > div:last-of-type {
+        margin-bottom: $margin-primary;
+        text-align: center;
+        font-size: 13px;
+
+        &:hover > a {
+            color: $color-dark-yellow;
+        }
+    }
+
+    &:hover {
+        box-shadow: rgba(17, 17, 26, 0.2) 0px 8px 24px, rgba(17, 17, 26, 0.2) 0px 16px 56px,
+            rgba(17, 17, 26, 0.2) 0px 24px 80px;
+    }
+}
+
+// SIGNIN, SIGNUP PAGES
+.form-medium {
+    min-height: 70vh;
+    @include flex-column;
+    justify-content: center;
+    & form {
+        max-width: 450px;
+        min-width: 200px;
+        width: 100%;
+        @include respond(phone) {
+            padding: $padding-primary;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+    }
+}
+
+//TABLE
+table {
+    padding: 10px;
+    border-collapse: collapse;
+    width: 80%;
+    @include respond(tab-port) {
+        width: 100%;
+    }
+
+    & thead th {
+        background-color: $color-dark-blue;
+        color: white;
+        text-align: left;
+    }
+
+    & tr td {
+        border-bottom: 1px solid rgba($color-dark-blue, 0.2);
+        padding: 10px 0;
+    }
+
+    & img {
+        width: 50px;
+        height: 50px;
     }
 }
