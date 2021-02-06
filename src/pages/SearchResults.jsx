@@ -1,13 +1,12 @@
-import { FormControl, Grid, InputLabel, Link, MenuItem, Select } from '@material-ui/core'
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductCategories, ListProducts } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox/LoadingBox';
 import MessageBox from '../components/MessageBox/MessageBox';
 import Product from '../components/Product/Product';
-import ProductsGrid from '../components/ProductsGrid/ProductsGrid';
 import "./SearchResults.scss";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Fragment } from 'react';
 import { Rating } from '@material-ui/lab';
 import { prices, ratings } from '../constants/utils';
@@ -26,10 +25,13 @@ function SearchResults(props) {
 
     const dispatch = useDispatch();
 
+    //show category list
     useEffect(() => {
         dispatch(listProductCategories())
     }, [dispatch])
 
+    //load the data for the first time in componentDidMount()
+    //when one dependency changes, component re-renders to show new filtered list
     useEffect(() => {
         dispatch(ListProducts({
             category: category !== "all" ? category : '',
@@ -56,7 +58,22 @@ function SearchResults(props) {
                     : error ? <MessageBox error={true}>{error}</MessageBox>
                         : <div>
                             <h3>{products.length} Results</h3>
-                            {category !== 'all' && ` : ${category}`}
+                            <p>Filter Commands:{" "} </p>
+                            <span>  <small>
+                                {category !== 'all' && ` : ${category}`}
+                                {name !== 'all' && ` : ${name}`}
+                                {rating > 0 && ` : ${rating} Stars & Up`}
+                                {min !== 0 && ` : $${min} to $${max}`}
+                                {category !== 'all' || name !== "all" || rating > 0 || min ?
+                                    <>
+                                        <Button
+                                            className="btn btn-extra"
+                                            onClick={() => props.history.push("/search")}
+                                        >Remove Filter</Button>
+                                    </>
+                                    : null
+                                }
+                            </small></span>
                         </div>
                 }
 
@@ -89,13 +106,17 @@ function SearchResults(props) {
                             <h4>Category</h4>
                             <ul>
                                 <li>
-                                    <Link to={getFilterUrl({ category: 'all' })}>Any</Link>
+                                    <Link to={getFilterUrl({ category: 'all' })}
+                                        className={category === "all" ? "active" : ""}
+                                    >Any</Link>
                                 </li>
                                 {loadingCategories ? <LoadingBox />
                                     : errorCategories ? <MessageBox error={true}>{errorCategories}</MessageBox>
                                         : categories.map((c, i) =>
                                             <li key={i}>
-                                                <Link to={getFilterUrl({ category: c })}>{c}</Link>
+                                                <Link to={getFilterUrl({ category: c })}
+                                                    className={c === category ? "active" : ''}
+                                                >{c}</Link>
                                             </li>)
                                 }
                             </ul>
@@ -105,7 +126,9 @@ function SearchResults(props) {
                             <ul>
                                 {prices.map((cat, i) => (
                                     <li key={i}>
-                                        <Link to={getFilterUrl({ min: cat.min, max: cat.max })}>
+                                        <Link to={getFilterUrl({ min: cat.min, max: cat.max })}
+                                            className={`$${min} to $${max}` == cat.name ? "active" : ''}
+                                        >
                                             {cat.name}
                                         </Link>
                                     </li>
@@ -116,14 +139,16 @@ function SearchResults(props) {
                             <h3>Average Customer Review</h3>
                             <div>
                                 {ratings.map((cat, i) => (
-                                 
-                                        <Link key={i} to={getFilterUrl({ rating: cat.rating })}>
-                                            <Rating className="rating"
-                                                name="half-rating-read"
-                                                value={cat.rating}
-                                                precision={0.5} readOnly /> & Up
-                                        </Link>
-                                   
+
+                                    <Link key={i} to={getFilterUrl({ rating: cat.rating })}>
+                                        <Rating className="rating"
+                                            name="half-rating-read"
+                                            value={cat.rating}
+                                            precision={0.5} readOnly />
+                                        <p className={`${cat.rating}` === rating ? 'active' : ""}>
+                                            & Up</p>
+                                    </Link>
+
                                 ))}
                             </div>
                         </div>
