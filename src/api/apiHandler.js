@@ -62,9 +62,9 @@ export default {
      //*******/ 
      // Products
      //*******/ 
-     fetchProductsData() {
+     fetchProductsData({category, name, order, min, max, rating}) {
           return service
-               .get("/products")
+               .get(`/products?catefory=${category}&name=${name}&order=${order}&min=${min}&max=${max}&rating=${rating}`)
                .then((res) => res.data)
                .catch(errorHandler);
      },

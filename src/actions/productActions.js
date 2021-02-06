@@ -1,10 +1,10 @@
 import apiHandler from "../api/apiHandler";
 import { PRODUCT_CATEGORY_LIST_FAIL, PRODUCT_CATEGORY_LIST_REQUEST, PRODUCT_CATEGORY_LIST_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "../constants/productConstants"
 
-export const ListProducts = () => (dispatch) => {
+export const ListProducts = ({category='', name='', order='', min=0, max=0, rating=0}) => (dispatch) => {
      dispatch({ type: PRODUCT_LIST_REQUEST })
 
-     apiHandler.fetchProductsData()
+     apiHandler.fetchProductsData({category, name, order, min, max, rating})
           .then(data => {
                dispatch({
                     type: PRODUCT_LIST_SUCCESS,

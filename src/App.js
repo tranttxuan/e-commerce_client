@@ -22,7 +22,12 @@ function App() {
       <NavBar />
       <Switch>
         {/* Public  */}
+        {/* search  */}
+        <Route exact path="/search/category/:category/name/:name/order/:order/min/:min/max/:max/rating/:rating"
+         component={SearchResults} />
         <Route exact path="/search/name/:name?" component={SearchResults} />
+        <Route exact path="/search" component={SearchResults} />
+
         <Route exact path="/product/:id" component={OneProduct} />
         <Route exact path="/cart/:id?" component={Cart} />
         <Route exact path="/signin" component={SignIn} />

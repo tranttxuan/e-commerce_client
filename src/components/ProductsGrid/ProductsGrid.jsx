@@ -13,7 +13,7 @@ function ProductsGrid() {
      const { loading, error, products } = productList;
 
      useEffect(() => {
-          dispatch(ListProducts())
+          dispatch(ListProducts({feaured: true}))
      }, [dispatch]);
 
      return (
