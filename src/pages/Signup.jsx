@@ -51,7 +51,7 @@ function Signup(props) {
                 <TextField
                     label="Name"
                     variant="filled"
-                    type="name"
+                    type="text"
                     required
                     value={name}
                     onChange={e => setName(e.target.value)}

@@ -6,10 +6,10 @@ import LoadingBox from '../components/LoadingBox/LoadingBox';
 import MessageBox from '../components/MessageBox/MessageBox';
 import Product from '../components/Product/Product';
 import "./SearchResults.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { Fragment } from 'react';
 import { Rating } from '@material-ui/lab';
-import { prices, ratings } from '../constants/utils';
+import { prices, ratings } from '../utils';
 
 function SearchResults(props) {
     const productCategoryList = useSelector(state => state.productCategoryList);
@@ -21,7 +21,7 @@ function SearchResults(props) {
 
     //check params
     const { name = 'all', category = 'all', order = 'newest', min = 0, max = 100000, rating = 0 } = useParams();
-    console.log("check params", useParams(), name, category)
+    // console.log("check params", useParams(), name, category)
 
     const dispatch = useDispatch();
 
@@ -58,22 +58,23 @@ function SearchResults(props) {
                     : error ? <MessageBox error={true}>{error}</MessageBox>
                         : <div>
                             <h3>{products.length} Results</h3>
-                            <p>Filter Commands:{" "} </p>
-                            <span>  <small>
-                                {category !== 'all' && ` : ${category}`}
-                                {name !== 'all' && ` : ${name}`}
-                                {rating > 0 && ` : ${rating} Stars & Up`}
-                                {min !== 0 && ` : $${min} to $${max}`}
-                                {category !== 'all' || name !== "all" || rating > 0 || min ?
-                                    <>
-                                        <Button
-                                            className="btn btn-extra"
-                                            onClick={() => props.history.push("/search")}
-                                        >Remove Filter</Button>
-                                    </>
-                                    : null
-                                }
-                            </small></span>
+                            <p>Filter Commands:{" "}
+                                <small>
+                                    {category !== 'all' && ` : ${category}`}
+                                    {name !== 'all' && ` : ${name}`}
+                                    {rating > 0 && ` : ${rating} Stars & Up`}
+                                    {min !== 0 && ` : $${min} to $${max}`}
+                                    {" "}
+                                    {category !== 'all' || name !== "all" || rating > 0 || min ?
+                                        <>
+                                            <Button
+                                                className="btn btn-extra"
+                                                onClick={() => props.history.push("/search")}
+                                            >Remove Filter</Button>
+                                        </>
+                                        : null
+                                    }
+                                </small></p>
                         </div>
                 }
 
@@ -98,86 +99,96 @@ function SearchResults(props) {
                 </div>
             </div>
 
-            <div className="search-page__main">
-                <Grid container justify={'space-between'}>
-                    <Grid item xs={12} sm={3}>
-                        <h3>Search</h3>
-                        <div>
-                            <h4>Category</h4>
-                            <ul>
-                                <li>
-                                    <Link to={getFilterUrl({ category: 'all' })}
-                                        className={category === "all" ? "active" : ""}
-                                    >Any</Link>
-                                </li>
-                                {loadingCategories ? <LoadingBox />
-                                    : errorCategories ? <MessageBox error={true}>{errorCategories}</MessageBox>
-                                        : categories.map((c, i) =>
-                                            <li key={i}>
-                                                <Link to={getFilterUrl({ category: c })}
-                                                    className={c === category ? "active" : ''}
-                                                >{c}</Link>
-                                            </li>)
-                                }
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>Price</h3>
-                            <ul>
-                                {prices.map((cat, i) => (
-                                    <li key={i}>
-                                        <Link to={getFilterUrl({ min: cat.min, max: cat.max })}
-                                            className={`$${min} to $${max}` == cat.name ? "active" : ''}
-                                        >
-                                            {cat.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>Average Customer Review</h3>
-                            <div>
-                                {ratings.map((cat, i) => (
 
-                                    <Link key={i} to={getFilterUrl({ rating: cat.rating })}>
-                                        <Rating className="rating"
-                                            name="half-rating-read"
-                                            value={cat.rating}
-                                            precision={0.5} readOnly />
-                                        <p className={`${cat.rating}` === rating ? 'active' : ""}>
-                                            & Up</p>
+            <Grid container justify={'space-between'} className="search-page__main">
+                <Grid item xs={12} sm={3} className="filters ">
+                    <div className="filter">
+                        <h3>Category</h3>
+                        <ul>
+                            <li>
+                                <Link to={getFilterUrl({ category: 'all' })}
+                                    className={category === "all" ? "active" : ""}
+                                >Any</Link>
+                            </li>
+                            {loadingCategories ? <LoadingBox />
+                                : errorCategories ? <MessageBox error={true}>{errorCategories}</MessageBox>
+                                    : categories.map((c, i) =>
+                                        <li key={i}>
+                                            <Link to={getFilterUrl({ category: c })}
+                                                className={c === category ? "active" : ''}
+                                            >{c}</Link>
+                                        </li>)
+                            }
+                        </ul>
+                    </div>
+                    <div className="filter">
+                        <h3>Price</h3>
+                        <ul>
+                            {prices.map((cat, i) => (
+                                <li key={i}>
+                                    <Link to={getFilterUrl({ min: cat.min, max: cat.max })}
+                                        className={`$${min} to $${max}` === cat.name ? "active" : Number(min) === Number(cat.min) ? "active" : ''}
+                                    >
+
+                                        {cat.name}
                                     </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="filter">
+                        <h3>Average Customer Review</h3>
+                        <div>
+                            {ratings.map((cat, i) => (
 
-                                ))}
-                            </div>
+                                <Link key={i} to={getFilterUrl({ rating: cat.rating })} className="filter__rating">
+                                    <Rating className="rating"
+                                        name="half-rating-read"
+                                        value={cat.rating}
+                                        precision={0.5} readOnly />
+                                    <p className={`${cat.rating}` === rating ? 'active' : ""}>
+                                        & Up</p>
+                                </Link>
+
+                            ))}
                         </div>
-                    </Grid>
-
-                    <Grid container item xs={12} sm={9} justify={'space-around'}>
-                        {loading ? <LoadingBox />
-                            : error ? <MessageBox error={true}>{error}</MessageBox>
-                                : (
-                                    <Fragment>
-                                        {products === 0 &&
-                                            <MessageBox>No Product Found</MessageBox>}
-
-
-                                        {products.map(({ name, image, price, rating, numReviews }, id) => (
-                                            <Grid item xs={12} sm={4} key={id}>
-                                                <Product
-                                                    name={name}
-                                                    image={image}
-                                                    price={price}
-                                                    rating={rating}
-                                                    numReviews={numReviews} />
-                                            </Grid>
-                                        ))}
-                                    </Fragment>)}
-                    </Grid>
+                    </div>
                 </Grid>
-            </div>
+
+                <Grid item xs={12} sm={9} container justify="space-around" className="products--grid">
+                    {loading
+                        ? <LoadingBox />
+                        : error
+                            ? <Grid item xs={12}>
+                                <MessageBox error={true}>{error}</MessageBox>
+                            </Grid>
+                            : (
+                                <Fragment>
+                                    {products.length === 0 &&
+                                        <Grid item xs={12}>
+                                            <MessageBox>No Product Found</MessageBox>
+                                        </Grid>
+                                    }
+
+                                    {products.map(({ name, image, price, rating, numReviews, _id }, id) => (
+
+                                        <NavLink to={`/product/${_id}`} key={id}>
+                                            <Product
+                                                name={name}
+                                                image={image}
+                                                price={price}
+                                                rating={rating}
+                                                numReviews={numReviews} />
+                                        </NavLink>
+
+                                    ))}
+                                </Fragment>
+                            )
+                    }
+                </Grid>
+            </Grid>
         </div>
+
     )
 }
 

@@ -33,8 +33,9 @@ function NavBar(props) {
 
 
     const handleSignOut = () => {
-        console.log("sign out")
-        dispatch(signout())
+        setTimeout(() => {
+            dispatch(signout())
+        }, 1000);
     }
 
     const handleDropDown = (event) => {
@@ -85,7 +86,7 @@ function NavBar(props) {
 
                         >
                             {userInfo &&
-                                <>
+                                <div>
                                     <MenuItem>
                                         <Button color="inherit">
                                             <Link className="header__optionLineTwo"
@@ -99,7 +100,7 @@ function NavBar(props) {
                                                 to="/orderhistory">Orders</Link>
                                         </Button>
                                     </MenuItem>
-                                </>
+                                </div>
                             }
 
                             <MenuItem>
@@ -107,17 +108,24 @@ function NavBar(props) {
                                     ?
                                     <Button color="inherit"
                                         onClick={handleSignOut}>
-                                        <Link className="header__optionLineTwo"> Sign Out</Link>
+                                        <Link to="/" className="header__optionLineTwo"> Sign Out</Link>
                                     </Button>
                                     :
                                     <Button color="inherit">
                                         <Link className="header__optionLineTwo"
                                             to="/signin" >Sign In</Link>
                                     </Button>
-
-
                                 }
                             </MenuItem>
+
+                            {userInfo.isSeller &&
+                                <MenuItem>
+                                    <Button color="inherit">
+                                        <Link className="header__optionLineTwo"
+                                            to="/product/create">Add new product</Link>
+                                    </Button>
+                                </MenuItem>
+                            }
 
                         </Menu>
                     </div>

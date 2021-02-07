@@ -15,16 +15,37 @@ import Profile from './pages/Profile';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import Footer from './components/Footer/Footer';
 import SearchResults from './pages/SearchResults';
+import AdminRoute from './components/Auth/AdminRoute';
+import ProductEdit from './pages/ProductEdit';
+import SellerRoute from './components/Auth/SellerRoute';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <div className="App">
       <NavBar />
       <Switch>
+
+        {/* Customer  */}
+        <PrivateRoute exact path="/shipping" component={ShippingAddress} />
+        <PrivateRoute exact path="/payment" component={Payment} />
+        <PrivateRoute exact path="/placeorder" component={PlaceOrder} />
+        <PrivateRoute exact path="/order/:orderId" component={Order} />
+        <PrivateRoute exact path="/orderhistory" component={OrderHistory} />
+        <PrivateRoute exact path="/profile" component={Profile} />
+
+
+        {/* Seller  */}
+
+        <SellerRoute exact path="/product/create" component={ProductEdit}/>
+        {/* Admin  */}
+        {/* <AdminRoute exact path="manageproduct" component={ } />" */}
+
+
         {/* Public  */}
         {/* search  */}
         <Route exact path="/search/category/:category/name/:name/order/:order/min/:min/max/:max/rating/:rating"
-         component={SearchResults} />
+          component={SearchResults} />
         <Route exact path="/search/name/:name?" component={SearchResults} />
         <Route exact path="/search" component={SearchResults} />
 
@@ -33,14 +54,7 @@ function App() {
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/register" component={Signup} />
         <Route exact path="/" component={Home} />
-        {/* Customer  */}
-        <PrivateRoute exact path="/shipping" component={ShippingAddress} />
-        <PrivateRoute exact path="/payment" component={Payment} />
-        <PrivateRoute exact path="/placeorder" component={PlaceOrder} />
-        <PrivateRoute exact path="/order/:orderId" component={Order} />
-        <PrivateRoute exact path="/orderhistory" component={OrderHistory} />
-
-        <PrivateRoute exact path="/profile" component={Profile} />
+        <Route path="*" component={NotFound} />
       </Switch>
       <Footer />
     </div>

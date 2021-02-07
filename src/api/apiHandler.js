@@ -62,7 +62,7 @@ export default {
      //*******/ 
      // Products
      //*******/ 
-     fetchProductsData({category, name, order, min, max, rating}) {
+     fetchProductsData({ category, name, order, min, max, rating }) {
           return service
                .get(`/products?category=${category}&name=${name}&order=${order}&min=${min}&max=${max}&rating=${rating}`)
                .then((res) => res.data)
@@ -74,7 +74,7 @@ export default {
                .then((res) => res.data)
                .catch(errorHandler);
      },
-     
+
      fetchOneProductDetail(idProduct) {
           return service
                .get(`/products/${idProduct}`)
@@ -82,7 +82,12 @@ export default {
                .catch(errorHandler);
      },
 
-
+     createProduct(data) {
+          return service
+               .post(`/products/create`, data)
+               .then((res) => res.data)
+               .catch(errorHandler);
+     },
      //*******/ 
      // ORDERS
      //*******/
