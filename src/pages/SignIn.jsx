@@ -61,7 +61,7 @@ function SignIn(props) {
                 <button className="btn" onSubmit={submitHandler}>Sign in</ button>
 
                 <div>
-                    New customer?{' '} <Link to="/register" >
+                    New customer?{' '} <Link to={redirect === '/' ? 'register' : `register?redirect=${redirect}`} >
                         <strong><em>Create your account</em></strong>
                     </Link>
                 </div>

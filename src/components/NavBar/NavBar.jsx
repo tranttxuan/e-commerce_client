@@ -118,7 +118,7 @@ function NavBar(props) {
                                 }
                             </MenuItem>
 
-                            {userInfo.isSeller &&
+                            {userInfo && userInfo.isSeller &&
                                 <MenuItem>
                                     <Button color="inherit">
                                         <Link className="header__optionLineTwo"

@@ -1,7 +1,9 @@
 import { Button, FormLabel, TextField } from '@material-ui/core'
 import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 import "./ProductEdit.scss";
 
 function ProductEdit() {
@@ -16,9 +18,15 @@ function ProductEdit() {
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
 
+    const productCreate = useSelector(state => state.productCreate);
+    const { success: successCreate, error: errorCreate, product: createdProduct } = productCreate;
     const dispatch = useDispatch();
 
-
+    useEffect(() => {
+        if (successCreate) {
+            dispatch({ type: PRODUCT_CREATE_RESET });
+        }
+    },[dispatch, successCreate])
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(createProduct({ name, price, image, images, brand, category, countInStock, description }))

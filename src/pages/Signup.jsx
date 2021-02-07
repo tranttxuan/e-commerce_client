@@ -14,13 +14,10 @@ function Signup(props) {
     const [name, setName] = useState('TXuan')
 
     const dispatch = useDispatch();
-    const userSignup = useSelector((state) => state.userSignup);
-    const { userInfo, loading, error } = userSignup;
-    // *******************************************************************
-    // ****************************************************
-    // 5:30 why use redirect 
-    // *******************************************************************
-    // ****************************************************
+
+    const userSignin = useSelector((state) => state.userSignin);
+    const { loading, error, userInfo } = userSignin;
+
     const redirect = props.location.search
         ? props.location.search.split('=')[1]
         : '/';
@@ -35,9 +32,11 @@ function Signup(props) {
 
     useEffect(() => {
         if (userInfo) {
-            props.history.push(redirect)
+            setTimeout(() => {
+                props.history.push(redirect)
+            }, 1000);
         }
-    }, [props.history,redirect, userInfo])
+    }, [props.history, redirect, userInfo])
     return (
         <div className="form-medium" >
             <form onSubmit={submitHandler}>
@@ -84,7 +83,7 @@ function Signup(props) {
                 <button className="btn" onSubmit={submitHandler}>Register</ button>
 
                 <div>
-                    Already have an account? <Link to="/signin" >
+                    Already have an account? <Link to={redirect === "/" ? 'signin' : `signin?redirect=${redirect}`} >
                         <strong><em>Sign-in</em></strong>
                     </Link>
                 </div>
