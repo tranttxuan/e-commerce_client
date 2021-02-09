@@ -37,6 +37,7 @@ function Payment(props) {
                             label="PayPal"
                             name="PayPalMedthod"
                             onChange={e => setPaymentMethod(e.target.value)}
+                            disabled
                         />
 
                         <FormControlLabel

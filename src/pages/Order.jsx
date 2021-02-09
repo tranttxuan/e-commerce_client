@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
@@ -14,7 +14,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 import "./Order.scss"
-const stripe = loadStripe("pk_test_51IEL8FIUMVGuOdPc3QJNZFcfeoP3JBOgklSOEYZQ8oqOOR3eRCteCAlG0nXVSlBhr0LL4lTfoeq6zhvuiUMfawqL00hSBA57Ht")
+import CheckoutForm from '../components/CheckoutForm/CheckoutForm';
+const promise = loadStripe("pk_test_51IEL8FIUMVGuOdPc3QJNZFcfeoP3JBOgklSOEYZQ8oqOOR3eRCteCAlG0nXVSlBhr0LL4lTfoeq6zhvuiUMfawqL00hSBA57Ht")
 
 
 function Order(props) {
@@ -28,6 +29,8 @@ function Order(props) {
 
     // const [sdkReady, setSdkReady] = useState(false);
     const dispatch = useDispatch();
+
+    //payment
 
 
 
@@ -137,7 +140,7 @@ function Order(props) {
                                     <div>Tax</div>
                                     <div>${order.taxPrice.toFixed(2)}</div>
                                 </div>
-
+                                <hr></hr>
                                 <div className="box--item">
                                     <div><strong>Order Total</strong></div>
                                     <div><strong>${order.totalPrice.toFixed(2)}</strong></div>
@@ -156,25 +159,13 @@ function Order(props) {
                                             </>}
                                     </div>
                                 } */}
+
                                 <div className="payment">
-                                    <Elements stripe={stripe}>
-                                        <CardElement
-                                            options={{
-                                                style: {
-                                                    base: {
-                                                        fontSize: '16px',
-                                                        color: '#424770',
-                                                        '::placeholder': {
-                                                            color: '#aab7c4',
-                                                        },
-                                                    },
-                                                    invalid: {
-                                                        color: '#9e2146',
-                                                    },
-                                                },
-                                            }}
-                                        />
+                                    <div><strong>Payment</strong></div>
+                                    <Elements stripe={promise}>
+                                        <CheckoutForm/>
                                     </Elements>
+
                                 </div>
 
 
