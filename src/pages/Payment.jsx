@@ -9,7 +9,7 @@ function Payment(props) {
     const cart = useSelector(state => state.cart)
     const { shippingAddress } = cart;
     if (!shippingAddress.address) {
-        props.history.push("/signin");
+        props.history.push("/shipping");
     }
     // const 
     const [paymentMethod, setPaymentMethod] = useState('PayPal')

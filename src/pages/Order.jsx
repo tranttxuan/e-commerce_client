@@ -7,19 +7,30 @@ import apiHandler from '../api/apiHandler';
 import CheckOutSteps from '../components/CheckOutSteps/CheckOutSteps'
 import LoadingBox from '../components/LoadingBox/LoadingBox';
 import MessageBox from '../components/MessageBox/MessageBox';
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
+
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
+import "./Order.scss"
+const stripe = loadStripe("pk_test_51IEL8FIUMVGuOdPc3QJNZFcfeoP3JBOgklSOEYZQ8oqOOR3eRCteCAlG0nXVSlBhr0LL4lTfoeq6zhvuiUMfawqL00hSBA57Ht")
+
 
 function Order(props) {
     const orderId = props.match.params.orderId;
-    const [sdkReady, setSdkReady] = useState(false);
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, loading, error } = orderDetails;
+    console.log(orderDetails)
 
     const orderPay = useSelector(state => state.orderPay)
     const { error: errorPay, success: successPay, loading: loadingPay } = orderPay;
 
+    // const [sdkReady, setSdkReady] = useState(false);
     const dispatch = useDispatch();
+
+
+
 
     useEffect(() => {
         if (!order || successPay || (order && order._id !== orderId)) {
@@ -27,27 +38,29 @@ function Order(props) {
             dispatch(detailsOrder(orderId))
         } else {
             if (!order.isPaid) {
-                if (!window.paypal) {
-                    //get client id in PAYPAL
-                    apiHandler.getPayPalScript()
-                        .then(data => {
-                            const script = document.createElement('script');
-                            script.type = "text/javascript";
-                            script.src = `https://www.paypal.com/sdk/js?client-id=${data}`
-                            script.async = true;
-                            script.onload = () => {
-                                setSdkReady(true)
-                            }
-                            document.body.appendChild(script)
-                        })
-                        .catch(err => console.log(err))
-                } else {
-                    setSdkReady(true)
-                }
+                //             if (!window.paypal) {
+                //                 //get client id in PAYPAL
+                //                 apiHandler.getPayPalScript()
+                //                     .then(data => {
+                //                         const script = document.createElement('script');
+                //                         script.type = "text/javascript";
+                //                         script.src = `https://www.paypal.com/sdk/js?client-id=${data}`
+                //                         script.async = true;
+                //                         script.onload = () => {
+                //                             setSdkReady(true)
+                //                         }
+                //                         document.body.appendChild(script)
+                //                     })
+                //                     .catch(err => console.log(err))
+                //             } else {
+                //                 setSdkReady(true)
+                //             }
+                console.log("not pay>>>>")
             }
         }
 
     }, [order, orderId, successPay, dispatch])
+
 
 
     const successPaymentHandler = (paymentResults) => {
@@ -56,8 +69,10 @@ function Order(props) {
 
     return (
         loading ? <LoadingBox /> : error
-            ? <MessageBox error={true}>{error}</MessageBox>
-            : <div>
+            ?
+            <MessageBox error={true}>{error}</MessageBox>
+            :
+            <div>
                 <CheckOutSteps steps={3} />
                 <div className="container">
                     <h2>Order {order._id}</h2>
@@ -106,7 +121,7 @@ function Order(props) {
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={3}>
-                            <div  className="box">
+                            <div className="box">
                                 <h2>Order summary</h2>
                                 <div className="box--item">
                                     <div>Items</div>
@@ -127,7 +142,7 @@ function Order(props) {
                                     <div><strong>Order Total</strong></div>
                                     <div><strong>${order.totalPrice.toFixed(2)}</strong></div>
                                 </div>
-                                {!order.isPaid &&
+                                {/* {!order.isPaid &&
                                     <div>
                                         {!sdkReady ? <LoadingBox /> :
                                             <>
@@ -140,14 +155,36 @@ function Order(props) {
                                                     onSuccess={successPaymentHandler} />
                                             </>}
                                     </div>
-                                }
+                                } */}
+                                <div className="payment">
+                                    <Elements stripe={stripe}>
+                                        <CardElement
+                                            options={{
+                                                style: {
+                                                    base: {
+                                                        fontSize: '16px',
+                                                        color: '#424770',
+                                                        '::placeholder': {
+                                                            color: '#aab7c4',
+                                                        },
+                                                    },
+                                                    invalid: {
+                                                        color: '#9e2146',
+                                                    },
+                                                },
+                                            }}
+                                        />
+                                    </Elements>
+                                </div>
+
 
                             </div>
 
                         </Grid>
                     </Grid>
                 </div>
-            </div>
+
+            </div >
     )
 }
 

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import Product from '../Product/Product';
 import { NavLink } from 'react-router-dom';
-import {Skeleton, Alert} from '@material-ui/lab';
+import { Skeleton, Alert } from '@material-ui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { ListProducts } from "../../actions/productActions";
 import "./ProductsGrid.scss"
@@ -13,7 +13,7 @@ function ProductsGrid() {
      const { loading, error, products } = productList;
 
      useEffect(() => {
-          dispatch(ListProducts({feaured: true}))
+          dispatch(ListProducts({ feaured: true }))
      }, [dispatch]);
 
      return (
@@ -21,33 +21,35 @@ function ProductsGrid() {
           <Fragment>
                {
                     loading ?
-                    <div>
-                    <CircularProgress />
-                    <Skeleton animation="wave" width="100%" height="100%" />
-                    </div>
-                        
+                         <div>
+                              <CircularProgress />
+                              <Skeleton animation="wave" width="100%" height="100%" />
+                         </div>
+
                          : error ?
                               <Alert variant="filled" severity="error">{error}</Alert>
                               :
-                              <Grid className="grid--container" 
-                              container 
-                              // spacing={3} 
-                              // direction="row"
-                              justify="space-around"
-                              alignItems="center"
+                              <Grid className="grid--container"
+                                   container
+                                   // spacing={3} 
+                                   // direction="row"
+                                   justify="space-around"
+                                   alignItems="center"
                               >
                                    {products.map(({ _id, name, image, price, rating, numReviews }) => (
-                                        <NavLink to={`/product/${_id}`} key={_id}>
-                                             <Product
+
+                                        <Product
                                              item
                                              xs={12}
-                                                  name={name}
-                                                  rating={rating}
-                                                  price={price}
-                                                  image={image}
-                                                  numReviews={numReviews}
-                                             />
-                                        </NavLink>
+                                             key={_id}
+                                             id={_id}
+                                             name={name}
+                                             rating={rating}
+                                             price={price}
+                                             image={image}
+                                             numReviews={numReviews}
+                                        />
+
 
                                    ))
                                    }

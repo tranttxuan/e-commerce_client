@@ -10,13 +10,15 @@ import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 
 function PlaceOrder(props) {
     const cart = useSelector(state => state.cart);
-    if (!cart.paymentMethod) {
+    const { cartItems, shippingAddress, paymentMethod } = cart;
+    if (!paymentMethod) {
         props.history.push("/payment")
     }
 
     const orderCreate = useSelector((state) => state.orderCreate);
-    const { loading, success, error, order } = orderCreate;
-console.log("check success", success)
+    const { success, order, error } = orderCreate;
+    console.log("check success", success, orderCreate)
+
     //calculate total price
     const toPrice = (number) => Number(number.toFixed(2))
     cart.itemsPrice = toPrice(cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0));
@@ -27,16 +29,18 @@ console.log("check success", success)
     const dispatch = useDispatch();
 
     const placeOrderHandler = () => {
-        dispatch(createOrder({ ...cart, orderItems: cart.cartItems }))
+        let {cartItems,...dataOrder}=cart;
+        // console.log("check ", {...dataOrder, orderItems: cart.cartItems })
+        dispatch(createOrder({ ...dataOrder, orderItems: cart.cartItems }))
     }
-
+   
     useEffect(() => {
-        console.log("check success", success)
+        // console.log("check success", success)
         if (success) {
             props.history.push(`/order/${order._id}`)
             dispatch({ type: ORDER_CREATE_RESET })
         }
-    }, [props.history, dispatch, success, order._id])
+    }, [props.history, dispatch, success, order])
     return (
         <div className="container">
             <CheckOutSteps steps={3} />
@@ -44,23 +48,23 @@ console.log("check success", success)
                 <Grid item xs={12} sm={6} md={9}>
                     <div className="box">
                         <h2>Shipping</h2>
-                        <p><strong>Name: </strong>{cart.shippingAddress.fullName}</p>
-                        <p><strong>Address: </strong> {cart.shippingAddress.address},
-                            {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
-                            {cart.shippingAddress.country} </p>
+                        <p><strong>Name: </strong>{shippingAddress.fullName}</p>
+                        <p><strong>Address: </strong> {shippingAddress.address},
+                            {shippingAddress.city}, {shippingAddress.postalCode},
+                            {shippingAddress.country} </p>
 
                     </div>
 
                     <div className="box">
                         <h2>Payment</h2>
-                        <p><strong>Method: </strong> {cart.paymentMethod}</p>
+                        <p><strong>Method: </strong> {paymentMethod}</p>
                     </div>
 
                     <div className="box">
                         <h2>Order Items</h2>
                         <table>
                             <tbody>
-                                {cart.cartItems.map((item, i) => (
+                                {cartItems.map((item, i) => (
                                     <tr key={i}>
                                         <td>
                                             <img src={item.image} alt={item.name} width={50} />
@@ -100,7 +104,7 @@ console.log("check success", success)
                             <div><strong>Order Total</strong></div>
                             <div><strong>${cart.totalPrice.toFixed(2)}</strong></div>
                         </div>
-                        {loading && <LoadingBox />}
+
                         {error && <MessageBox error={true}>{error}</MessageBox>}
 
                         <Button

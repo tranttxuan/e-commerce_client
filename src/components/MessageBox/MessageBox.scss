@@ -3,12 +3,12 @@
 .message-box {
     @include reset;
     width: 100%;
-    max-width: 300px;
+    // max-width: 300px;
     & > div:first-child {
         flex: 1;
         padding-left: 3px;
     }
     & > div:last-child {
-        flex: 4;
+        flex: 6;
     }
 }
