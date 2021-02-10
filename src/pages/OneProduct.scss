@@ -3,9 +3,9 @@
 .one-product {
     margin: 50px auto;
 
-    &__wrapper > div {
-        mask-border: $margin-primary !important;
-    }
+    // &__wrapper > div {
+    //     mask-border: $margin-primary !important;
+    // }
     &__back-icon {
         align-self: flex-start;
         margin-bottom: $margin-primary;
@@ -16,6 +16,24 @@
         }
     }
 
+    &__wrapper {
+        margin-bottom: $margin-primary;
+        margin-top: $margin-medium;
+    }
+
+    &__info{
+        & > li{
+            margin-bottom:10px;
+            & .rating{
+                font-size: 16px;
+            }
+            & p{
+                letter-spacing: 1.5px;
+                line-height: 1.2;
+            }
+        }
+    }
+
     &__img-prod {
         width: 80%;
         margin: 0 auto;
@@ -23,9 +41,30 @@
             width: 100%;
         }
     }
-    &__images img {
-        width: 50px;
-        border-radius: 7px;
+
+    &__images {
+        @include flex-row;
+        & img {
+            object-fit:scale-down ;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 7px;
+            padding: 2px;
+            
+        }
+        & button {
+            border-radius: 2px;
+            border: 0.5px solid rgb(206, 197, 197);
+            box-shadow: none;
+            background-color: transparent;
+            width: 50px;
+            outline: none;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            &:focus{
+                border: 1px solid $color-dark-yellow;
+            }
+        }
     }
 
     & .add-reviews {
@@ -38,8 +77,8 @@
         & form.form-medium {
             min-height: max-content !important;
             width: 100%;
-            & >div:not(:nth-of-type(3)){
-                 margin-bottom: $margin-primary;
+            & > div:not(:nth-of-type(3)) {
+                margin-bottom: $margin-primary;
             }
         }
     }

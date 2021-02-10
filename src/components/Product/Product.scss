@@ -43,8 +43,7 @@
         max-height: 200px;
         width: 100%;
         object-fit: contain;
-        mask-border: 15px;
-        margin-top: 5px;
+        // mask-border: 15px;
         transform: scale(1) rotate3d(0px, 0px, 0px);
     }
 
@@ -52,9 +51,4 @@
         margin-top: 5px;
     }
 
-    &__rating {
-        & > small {
-            font-size: 13px;
-        }
-    }
 }

@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import Product from '../Product/Product';
-import { NavLink } from 'react-router-dom';
-import { Skeleton, Alert } from '@material-ui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { ListProducts } from "../../actions/productActions";
 import "./ProductsGrid.scss"
-import { CircularProgress, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import MessageBox from '../MessageBox/MessageBox';
+import LoadingBox from '../LoadingBox/LoadingBox';
 
 function ProductsGrid() {
      const dispatch = useDispatch();
@@ -21,13 +21,10 @@ function ProductsGrid() {
           <Fragment>
                {
                     loading ?
-                         <div>
-                              <CircularProgress />
-                              <Skeleton animation="wave" width="100%" height="100%" />
-                         </div>
+                         <LoadingBox />
 
                          : error ?
-                              <Alert variant="filled" severity="error">{error}</Alert>
+                              <MessageBox filled={true} error={true}>{error}</MessageBox>
                               :
                               <Grid className="grid--container"
                                    container

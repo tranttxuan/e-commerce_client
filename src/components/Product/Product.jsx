@@ -32,8 +32,8 @@ function Product({ id, name, image, price, rating, numReviews }) {
                         <span>$</span> <strong>{price}</strong>
                     </p>
 
-                    <div className="product__rating">
-                        <Rating className="rating" name="half-rating-read" value={rating} precision={0.5} readOnly />
+                    <div className="product__rating rating">
+                        <Rating name="half-rating-read" value={rating} precision={0.5} readOnly />
                         <small>{numReviews} reviews</small>
                     </div>
                 </NavLink>

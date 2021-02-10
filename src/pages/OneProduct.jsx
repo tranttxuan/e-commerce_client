@@ -55,7 +55,7 @@ function OneProduct(props) {
                                 <Grid item xs={12} sm={6} >
                                     <div className="one-product__img-prod">
                                         <img
-                                            src={product.image || selectedImage}
+                                            src={ selectedImage || product.image}
                                             alt={product.name}
                                         />
                                     </div>
@@ -63,13 +63,13 @@ function OneProduct(props) {
                                 </Grid>
 
                                 <Grid item xs={12} sm={6} md={3} >
-                                    <ul>
+                                    <ul className="one-product__info">
                                         <li>
-                                            <h2>{product.name}</h2>
+                                            <h3>{product.name}</h3>
                                         </li>
 
                                         <li>
-                                            <a href="#reviews">
+                                            <a href="#reviews"  >
                                                 <Rating
                                                     name="half-rating-read"
                                                     value={product.rating}
@@ -77,7 +77,7 @@ function OneProduct(props) {
                                                     readOnly
                                                 />
                                                 {product.numReviews} reviews
-                                    </a>
+                                            </a>
                                         </li>
 
                                         <li>
@@ -96,7 +96,6 @@ function OneProduct(props) {
                                                     <li key={prod}>
                                                         <button
                                                             type="button"
-                                                            //   className="light"
                                                             onClick={() => changeImage(prod)}
                                                         >
                                                             <img
@@ -123,15 +122,17 @@ function OneProduct(props) {
                                                         {product?.seller?.seller?.name}
                                                     </Link>
                                                 </h2>
-                                                <Rating
-                                                    className="rating"
-                                                    name="half-rating-read"
-                                                    value={product?.seller?.seller?.rating}
-                                                    precision={0.5}
-                                                    readOnly
-                                                />
-                                                {product?.seller?.seller?.numReviews} reviews
-                                              </li>
+                                                <div className="rating">
+                                                    <Rating
+                                                        name="half-rating-read"
+                                                        value={product?.seller?.seller?.rating}
+                                                        precision={0.5}
+                                                        readOnly
+                                                    />
+                                                    {product?.seller?.seller?.numReviews} reviews
+                                                </div>
+
+                                            </li>
 
                                             <li>
                                                 <Grid container justify={"space-between"}>
@@ -198,8 +199,8 @@ function OneProduct(props) {
                             </Grid>
 
                             {/* REVIEWS */}
-                            <div className="container add-reviews">
-                                <h2 id="reviews">Reviews</h2>
+                            <div id="reviews" className="container add-reviews">
+                                <h2 >Reviews</h2>
 
                                 {!product.reviews.length && (
                                     <MessageBox>No review</MessageBox>
