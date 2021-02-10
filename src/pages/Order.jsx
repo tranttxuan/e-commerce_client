@@ -11,7 +11,6 @@ import MessageBox from '../components/MessageBox/MessageBox';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 import "./Order.scss"
 import CheckoutForm from '../components/CheckoutForm/CheckoutForm';
@@ -39,27 +38,6 @@ function Order(props) {
         if (!order || successPay || (order && order._id !== orderId)) {
             dispatch({ type: ORDER_PAY_RESET })
             dispatch(detailsOrder(orderId))
-        } else {
-            if (!order.isPaid) {
-                //             if (!window.paypal) {
-                //                 //get client id in PAYPAL
-                //                 apiHandler.getPayPalScript()
-                //                     .then(data => {
-                //                         const script = document.createElement('script');
-                //                         script.type = "text/javascript";
-                //                         script.src = `https://www.paypal.com/sdk/js?client-id=${data}`
-                //                         script.async = true;
-                //                         script.onload = () => {
-                //                             setSdkReady(true)
-                //                         }
-                //                         document.body.appendChild(script)
-                //                     })
-                //                     .catch(err => console.log(err))
-                //             } else {
-                //                 setSdkReady(true)
-                //             }
-                console.log("not pay>>>>")
-            }
         }
 
     }, [order, orderId, successPay, dispatch])
@@ -95,7 +73,7 @@ function Order(props) {
 
                             <div className="box">
                                 <h3>Payment</h3>
-                                <p><strong>Method: </strong> {order.paymentMethod}</p>
+                                <p><strong>Method: </strong> {order.paymentMethod === "Stripe" && "Credit Card"} </p>
                                 {order.isPaid
                                     ? <MessageBox>Payment at {order.paidAt}</MessageBox>
                                     : <MessageBox error={true}>Not Paid</MessageBox>}
@@ -145,28 +123,18 @@ function Order(props) {
                                     <div><strong>Order Total</strong></div>
                                     <div><strong>${order.totalPrice.toFixed(2)}</strong></div>
                                 </div>
-                                {/* {!order.isPaid &&
-                                    <div>
-                                        {!sdkReady ? <LoadingBox /> :
-                                            <>
-                                                {errorPay &&
-                                                    <MessageBox error={true}>{errorPay}</MessageBox>
-                                                }
-                                                {loadingPay && <LoadingBox />}
-                                                <PayPalButton
-                                                    amount={order.totalPrice}
-                                                    onSuccess={successPaymentHandler} />
-                                            </>}
-                                    </div>
-                                } */}
 
-                                <div className="payment">
+                              {  !order.isPaid && <div className="payment">
                                     <div><strong>Payment</strong></div>
                                     <Elements stripe={promise}>
-                                        <CheckoutForm/>
+                                        <CheckoutForm
+                                            totalPrice={order.totalPrice.toFixed(2)}
+                                            order={order}
+                                           
+                                        />
                                     </Elements>
 
-                                </div>
+                                </div>}
 
 
                             </div>

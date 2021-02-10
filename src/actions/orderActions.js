@@ -57,7 +57,7 @@ export const payOrder = (order, paymentResult) => (dispatch, getState) => {
         payload: { order, paymentResult }
     })
 
-    apiHandler.payOrder(order._id)
+    apiHandler.payOrder(order._id, paymentResult)
         .then(data => {
             dispatch({
                 type: ORDER_PAY_SUCCESS,

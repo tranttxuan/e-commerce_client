@@ -114,16 +114,16 @@ export default {
      //*******/ 
      // PAYPAL
      //*******/
-     getPayPalScript() {
+     getPayPalScript(data) {
           return service
-               .get(`/config/paypal`)
+               .post(`/orders/charge/stripe`,data)
                .then((res) => res.data)
                .catch(errorHandler);
      },
 
-     payOrder(idOrder) {
+     payOrder(idOrder, paymentResult) {
           return service
-               .patch(`/orders/${idOrder}/pay`)
+               .patch(`/orders/${idOrder}/pay`, paymentResult)
                .then((res) => res.data)
                .catch(errorHandler);
      }

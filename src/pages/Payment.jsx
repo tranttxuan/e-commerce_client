@@ -12,7 +12,7 @@ function Payment(props) {
         props.history.push("/shipping");
     }
     // const 
-    const [paymentMethod, setPaymentMethod] = useState('PayPal')
+    const [paymentMethod, setPaymentMethod] = useState('Stripe')
     const dispatch = useDispatch();
 
     const submitHandler = (event) => {
@@ -43,7 +43,7 @@ function Payment(props) {
                         <FormControlLabel
                             value="Stripe"
                             control={<Radio />}
-                            label="Stripe"
+                            label="Credit Card"
                             name="StripeMethod"
                             onChange={e => setPaymentMethod(e.target.value)}
                         />
