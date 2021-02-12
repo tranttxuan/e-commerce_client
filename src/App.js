@@ -14,11 +14,12 @@ import OrderHistory from './pages/OrderHistory';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import Footer from './components/Footer/Footer';
-import SearchResults from './pages/SearchResults';
+import SearchResults from './pages/SearchResults/SearchResults';
 import AdminRoute from './components/Auth/AdminRoute';
-import ProductEdit from './pages/ProductEdit';
+import ProductEdit from './pages/ProductEdit/ProductEdit';
 import SellerRoute from './components/Auth/SellerRoute';
 import NotFound from './pages/NotFound';
+import ProductListOfSeller from './pages/ProductListOfSeller/ProductListOfSeller';
 
 function App() {
   return (
@@ -37,7 +38,8 @@ function App() {
 
         {/* Seller  */}
 
-        <SellerRoute exact path="/product/create" component={ProductEdit}/>
+        <SellerRoute exact path="/product/create" component={ProductEdit} />
+        <SellerRoute exact path="productlist/seller" component={ProductListOfSeller} />
         {/* Admin  */}
         {/* <AdminRoute exact path="manageproduct" component={ } />" */}
 

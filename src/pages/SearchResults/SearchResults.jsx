@@ -1,15 +1,15 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProductCategories, ListProducts } from '../actions/productActions';
-import LoadingBox from '../components/LoadingBox/LoadingBox';
-import MessageBox from '../components/MessageBox/MessageBox';
-import Product from '../components/Product/Product';
+import LoadingBox from '../../components/LoadingBox/LoadingBox';
+import MessageBox from '../../components/MessageBox/MessageBox';
+import Product from '../../components/Product/Product';
 import "./SearchResults.scss";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { Fragment } from 'react';
 import { Rating } from '@material-ui/lab';
-import { prices, ratings } from '../utils';
+import { prices, ratings } from '../../utils';
+import { listProductCategories, ListProducts } from '../../actions/productActions';
 
 function SearchResults(props) {
     const productCategoryList = useSelector(state => state.productCategoryList);

@@ -19,7 +19,7 @@ function OrderHistory(props) {
         <div className="container min-height">
             <h1> Order History</h1>
             {loading ? <LoadingBox />
-                : error ? < MessageBox error={true}>{error}</MessageBox>
+                : error ? (<MessageBox error={error}>{error}</MessageBox>)
                     : (
                         <table>
                             <thead>
@@ -34,6 +34,9 @@ function OrderHistory(props) {
 
                             </thead>
                             <tbody>
+                            {orders.length===0 && <tr><td colSpan={6}>
+                                <MessageBox>You have not yet ordered in aMaZ</MessageBox>
+                            </td></tr>}
                                 {orders.map(order => (
                                     <tr key={order._id}>
                                         <td>{order._id}</td>

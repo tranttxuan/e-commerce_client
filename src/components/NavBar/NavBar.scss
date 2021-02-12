@@ -147,8 +147,12 @@
             rgba($color-light-yellow, 1) 100%
         );
         & li {
-            padding-top: 0px;
-            padding-bottom: 0px;
+            padding: 0 10px;
+            & button {
+                text-transform: none;
+                font-weight: 500;
+                font-size: 15px;
+            }
         }
     }
 }

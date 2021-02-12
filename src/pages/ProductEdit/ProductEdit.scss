@@ -1,0 +1,32 @@
+@import "../../styles/base";
+
+.product-edit {
+    form {
+        width: 100% !important;
+        margin: 50px 10px;
+    }
+
+    & img.product__image {
+        height: 100px !important;
+        width: auto;
+        align-self: flex-start;
+        margin-top: 13px;
+        padding-left: 20px;
+    }
+    & em {
+        padding-left: 12px;
+    }
+    & input[type="file"] {
+        padding: 13px 10px 13px 20px;
+    }
+    & .radio {
+        @include flex-row;
+        & span:first-of-type {
+            width: 70px;
+            padding-left: 20px;
+        }
+    }
+    & .label {
+        padding-left: 12px;
+    }
+}

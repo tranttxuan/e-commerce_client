@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { signin } from '../actions/userAction'
@@ -37,7 +37,7 @@ function SignIn(props) {
                     <h1>Sign In</h1>
                 </div>
                 {loading && <LoadingBox />}
-                {error && <MessageBox error={true}>{error}</MessageBox>}
+                {error && <MessageBox error={true} filled={true}>{error}</MessageBox>}
                 <TextField
                     label="Email"
                     variant="filled"
@@ -58,7 +58,7 @@ function SignIn(props) {
                 />
 
 
-                <button className="btn" onSubmit={submitHandler}>Sign in</ button>
+                <Button className="btn" onSubmit={submitHandler} type="submit">Sign in</ Button>
 
                 <div>
                     New customer?{' '} <Link to={redirect === '/' ? 'register' : `register?redirect=${redirect}`} >

@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -15,9 +15,11 @@ function Signup(props) {
 
     const dispatch = useDispatch();
 
-    const userSignin = useSelector((state) => state.userSignin);
-    const { loading, error, userInfo } = userSignin;
 
+    const userSignup = useSelector((state) => state.userSignup);
+    const { loading, error, userInfo } = userSignup;
+
+    
     const redirect = props.location.search
         ? props.location.search.split('=')[1]
         : '/';
@@ -29,12 +31,14 @@ function Signup(props) {
         }
         dispatch(register(name, email, password))
     }
-
+console.log(error, userInfo)
     useEffect(() => {
         if (userInfo) {
             setTimeout(() => {
                 props.history.push(redirect)
             }, 1000);
+        }else{
+
         }
     }, [props.history, redirect, userInfo])
     return (
@@ -45,7 +49,7 @@ function Signup(props) {
                 </div>
 
                 {loading && <LoadingBox />}
-                {error && <MessageBox error={true}>{error}</MessageBox>}
+                {error && <MessageBox error={true} filled={true}>{error}</MessageBox>}
 
                 <TextField
                     label="Name"
@@ -80,7 +84,7 @@ function Signup(props) {
                     onChange={e => setConfirmPassword(e.target.value)}
                 />
 
-                <button className="btn" onSubmit={submitHandler}>Register</ button>
+                <Button className="btn" onSubmit={submitHandler} type="submit">Register</Button >
 
                 <div>
                     Already have an account? <Link to={redirect === "/" ? 'signin' : `signin?redirect=${redirect}`} >

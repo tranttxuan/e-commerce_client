@@ -69,7 +69,7 @@ function OneProduct(props) {
                                         </li>
 
                                         <li>
-                                            <a href="#reviews"  >
+                                            <Link to="#reviews"  >
                                                 <Rating
                                                     name="half-rating-read"
                                                     value={product.rating}
@@ -77,7 +77,7 @@ function OneProduct(props) {
                                                     readOnly
                                                 />
                                                 {product.numReviews} reviews
-                                            </a>
+                                            </Link>
                                         </li>
 
                                         <li>
@@ -92,8 +92,8 @@ function OneProduct(props) {
                                         <li>
                                             <strong>Images:</strong>
                                             <ul className="one-product__images">
-                                                {[product.image, ...product.images].map((prod) => (
-                                                    <li key={prod}>
+                                                {[product.image, ...product.images].map((prod, id) => (
+                                                    <li key={id}>
                                                         <button
                                                             type="button"
                                                             onClick={() => changeImage(prod)}

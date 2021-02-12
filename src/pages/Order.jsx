@@ -1,9 +1,8 @@
-import { Button, Grid } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import {  Grid } from '@material-ui/core'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { detailsOrder, payOrder } from '../actions/orderActions';
-import apiHandler from '../api/apiHandler';
 import CheckOutSteps from '../components/CheckOutSteps/CheckOutSteps'
 import LoadingBox from '../components/LoadingBox/LoadingBox';
 import MessageBox from '../components/MessageBox/MessageBox';
@@ -24,7 +23,7 @@ function Order(props) {
     console.log(orderDetails)
 
     const orderPay = useSelector(state => state.orderPay)
-    const { error: errorPay, success: successPay, loading: loadingPay } = orderPay;
+    const { success: successPay } = orderPay;
 
     // const [sdkReady, setSdkReady] = useState(false);
     const dispatch = useDispatch();

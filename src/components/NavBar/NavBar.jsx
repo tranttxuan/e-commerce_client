@@ -53,7 +53,7 @@ function NavBar(props) {
                 <h1>aMaZ</h1>
             </Link>
 
-            <div className="header__search">
+            <div className="header__search" id="searchBar">
                 <input
                     className="header__search--input"
                     type="text"
@@ -64,7 +64,6 @@ function NavBar(props) {
                     <SearchIcon className="header__search--icon" />
                 </Button>
 
-
             </div>
 
             <div className="header__nav">
@@ -74,6 +73,7 @@ function NavBar(props) {
                     </Button>
                     <div>
                         <Button className="header__optionLineTwo" color="inherit"
+                            id="yourAccountButton"
                             onClick={handleDropDown}>
                             Your account <ArrowDropDownIcon />
                         </Button>
@@ -88,16 +88,20 @@ function NavBar(props) {
                             {userInfo &&
                                 <div>
                                     <MenuItem>
-                                        <Button color="inherit">
-                                            <Link className="header__optionLineTwo"
-                                                to="/profile" >Profile</Link>
+                                        <Button color="inherit"
+                                            onClick={e => props.history.push("/profile")}
+                                        >
+                                            {/* <Link className="header__optionLineTwo"
+                                                to="/profile" > */}
+                                                Profile
+                                                {/* </Link> */}
                                         </Button>
                                     </MenuItem>
 
                                     <MenuItem>
-                                        <Button color="inherit">
-                                            <Link className="header__optionLineTwo"
-                                                to="/orderhistory">Orders</Link>
+                                        <Button color="inherit"
+                                            onClick={e => props.history.push("/orderhistory")}>
+                                            Orders
                                         </Button>
                                     </MenuItem>
                                 </div>
@@ -108,21 +112,21 @@ function NavBar(props) {
                                     ?
                                     <Button color="inherit"
                                         onClick={handleSignOut}>
-                                        <Link to="/" className="header__optionLineTwo"> Sign Out</Link>
+                                        Sign Out
                                     </Button>
                                     :
-                                    <Button color="inherit">
-                                        <Link className="header__optionLineTwo"
-                                            to="/signin" >Sign In</Link>
+                                    <Button color="inherit"
+                                        onClick={e => props.history.push("/signin")}>
+                                        Sign In
                                     </Button>
                                 }
                             </MenuItem>
 
                             {userInfo && userInfo.isSeller &&
                                 <MenuItem>
-                                    <Button color="inherit">
-                                        <Link className="header__optionLineTwo"
-                                            to="/product/create">Add new product</Link>
+                                    <Button color="inherit"
+                                        onClick={e => props.history.push("/product/create")}>
+                                        Add new product
                                     </Button>
                                 </MenuItem>
                             }

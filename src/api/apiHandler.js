@@ -116,7 +116,7 @@ export default {
      //*******/
      getPayPalScript(data) {
           return service
-               .post(`/orders/charge/stripe`,data)
+               .post(`/orders/charge/stripe`, data)
                .then((res) => res.data)
                .catch(errorHandler);
      },
@@ -126,6 +126,14 @@ export default {
                .patch(`/orders/${idOrder}/pay`, paymentResult)
                .then((res) => res.data)
                .catch(errorHandler);
-     }
-
+     },
+     //*******/ 
+     // UploadFile
+     //*******/
+     uploadFile(formData) {
+          return service
+               .post(`/upload`,formData)
+               .then((res) => res.data)
+               .catch(errorHandler);
+     },
 }
