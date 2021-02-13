@@ -20,6 +20,7 @@ import ProductEdit from './pages/ProductEdit/ProductEdit';
 import SellerRoute from './components/Auth/SellerRoute';
 import NotFound from './pages/NotFound';
 import ProductListOfSeller from './pages/ProductListOfSeller/ProductListOfSeller';
+import Seller from './pages/Seller/Seller';
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
         {/* Seller  */}
 
         <SellerRoute exact path="/product/create" component={ProductEdit} />
-        <SellerRoute exact path="productlist/seller" component={ProductListOfSeller} />
+        <SellerRoute exact path="/productlist/seller" component={ProductListOfSeller} />
         {/* Admin  */}
         {/* <AdminRoute exact path="manageproduct" component={ } />" */}
 
@@ -53,6 +54,8 @@ function App() {
 
         <Route exact path="/product/:id" component={OneProduct} />
         <Route exact path="/cart/:id?" component={Cart} />
+        <Route exact path="/seller/:idSeller" component={Seller} />
+
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/register" component={Signup} />
         <Route exact path="/" component={Home} />

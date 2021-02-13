@@ -50,21 +50,14 @@ function ProductEdit(props) {
         //convert uploaded file to url
         apiHandler.uploadFile(bodyFormData)
             .then(imageUrl => {
-                setTimeout(() => {
-                    setUploading(false);
-                    if (forImages) {
-                        const updatedListOfImages = images.length !== 0
-                            ? [...images].pop()
-                            : [...images];
-                        updatedListOfImages.push(imageUrl)
-                        setImages(updatedListOfImages);
-                        setShowAdditionalImage(URL.createObjectURL(event.target.files[0]));
-                    } else {
-                        setImage(imageUrl);
-                        setShowImage(URL.createObjectURL(event.target.files[0]));
-                    }
-                }, 2000);
-
+                setUploading(false);
+                if (forImages) {
+                    setImages([...images, imageUrl]);
+                    setShowAdditionalImage(URL.createObjectURL(event.target.files[0]));
+                } else {
+                    setImage(imageUrl);
+                    setShowImage(URL.createObjectURL(event.target.files[0]));
+                }
             })
             .catch(err => {
                 console.log(err)
@@ -211,7 +204,7 @@ function ProductEdit(props) {
                 }
                 <br></br>
                 <FormLabel className="label">List of additional images</FormLabel>
-                <div className="product__image--additional">
+                <div  className="product__image--additional">
                     {images.length === 0 ? <em>No image</em> :
                         images.map((img, id) =>
                             <img src={img} key={id} alt={`img-${id}`}

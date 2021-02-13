@@ -1,3 +1,7 @@
-.checkoutForm{
-    
+@import "../../styles/base";
+
+form.checkoutForm{
+    @include respond(tab-port) {
+        padding: 4px 10px!important;
+    }
 }

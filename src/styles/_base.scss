@@ -158,6 +158,9 @@ ul li {
             rgba(17, 17, 26, 0.2) 0px 24px 80px;
     }
 
+    & >*{
+        margin-bottom: 8px;
+    }
     &--item {
         @include flex-row;
         justify-content: space-between;
