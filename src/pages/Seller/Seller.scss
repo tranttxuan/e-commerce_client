@@ -1,0 +1,12 @@
+.sellerPage {
+  margin: 50px 0;
+    & .contact {
+       display: flex;
+       align-items: center;
+       align-content: center;
+       &:hover{
+           color: blue;
+       }
+    }
+
+}

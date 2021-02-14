@@ -20,7 +20,11 @@
         padding: 13px 10px 13px 20px;
     }
     & .radio {
-        @include flex-row;
+      @include flex-row;
+      justify-content: center;
+        & label{
+            width: auto;
+        }
         & span:first-of-type {
             width: 70px;
             padding-left: 20px;

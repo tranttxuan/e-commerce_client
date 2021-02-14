@@ -2,17 +2,17 @@ import {  Grid } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { detailsOrder, payOrder } from '../actions/orderActions';
-import CheckOutSteps from '../components/CheckOutSteps/CheckOutSteps'
-import LoadingBox from '../components/LoadingBox/LoadingBox';
-import MessageBox from '../components/MessageBox/MessageBox';
+import { detailsOrder} from '../../actions/orderActions';
+import CheckOutSteps from '../../components/CheckOutSteps/CheckOutSteps'
+import LoadingBox from '../../components/LoadingBox/LoadingBox';
+import MessageBox from '../../components/MessageBox/MessageBox';
 // import { PayPalButton } from "react-paypal-button-v2";
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { ORDER_PAY_RESET } from '../constants/orderConstants';
+import { ORDER_PAY_RESET } from '../../constants/orderConstants';
 import "./Order.scss"
-import CheckoutForm from '../components/CheckoutForm/CheckoutForm';
+import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
 const promise = loadStripe("pk_test_51IEL8FIUMVGuOdPc3QJNZFcfeoP3JBOgklSOEYZQ8oqOOR3eRCteCAlG0nXVSlBhr0LL4lTfoeq6zhvuiUMfawqL00hSBA57Ht")
 
 
@@ -43,9 +43,9 @@ function Order(props) {
 
 
 
-    const successPaymentHandler = (paymentResults) => {
-        dispatch(payOrder(order, paymentResults))
-    }
+    // const successPaymentHandler = (paymentResults) => {
+    //     dispatch(payOrder(order, paymentResults))
+    // }
 
     return (
         loading ? <LoadingBox /> : error

@@ -1,8 +1,8 @@
 import { Button, FormControlLabel, Radio, RadioGroup } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { savePaymentMethod } from '../actions/cartAction';
-import CheckOutSteps from '../components/CheckOutSteps/CheckOutSteps'
+import { savePaymentMethod } from '../../actions/cartAction';
+import CheckOutSteps from '../../components/CheckOutSteps/CheckOutSteps'
 import "./Payment.scss"
 
 function Payment(props) {

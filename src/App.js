@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import OneProduct from './pages/OneProduct';
-import Cart from './pages/Cart';
+import OneProduct from './pages/OneProduct/OneProduct';
+import Cart from './pages/Cart/Cart';
 import SignIn from './pages/SignIn';
 import NavBar from './components/NavBar/NavBar';
 import Signup from './pages/Signup';
 import ShippingAddress from './pages/ShippingAddress';
-import Payment from './pages/Payment';
+import Payment from './pages/Payment/Payment';
 import PlaceOrder from './pages/PlaceOrder';
-import Order from './pages/Order';
+import Order from './pages/Order/Order';
 import OrderHistory from './pages/OrderHistory';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/Auth/PrivateRoute';
@@ -21,6 +21,8 @@ import SellerRoute from './components/Auth/SellerRoute';
 import NotFound from './pages/NotFound';
 import ProductListOfSeller from './pages/ProductListOfSeller/ProductListOfSeller';
 import Seller from './pages/Seller/Seller';
+import OrderListOfSeller from './pages/OrderListOfSeller/OrderListOfSeller';
+
 
 function App() {
   return (
@@ -38,9 +40,10 @@ function App() {
 
 
         {/* Seller  */}
-
-        <SellerRoute exact path="/product/create" component={ProductEdit} />
         <SellerRoute exact path="/productlist/seller" component={ProductListOfSeller} />
+        <SellerRoute exact path="/orderlist/seller" component={OrderListOfSeller} />
+        <SellerRoute exact path="/product/create" component={ProductEdit} />
+        <SellerRoute exact path="/product/edit/:idProd" component={ProductEdit} />
         {/* Admin  */}
         {/* <AdminRoute exact path="manageproduct" component={ } />" */}
 

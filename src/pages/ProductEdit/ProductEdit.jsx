@@ -1,12 +1,12 @@
 import { Button, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@material-ui/core'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProduct } from '../../actions/productActions';
+import { createProduct, DetailsProduct, editProduct } from '../../actions/productActions';
 import apiHandler from '../../api/apiHandler';
 import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import MessageBox from '../../components/MessageBox/MessageBox';
-import { PRODUCT_CREATE_RESET } from '../../constants/productConstants';
+import { PRODUCT_CREATE_RESET, PRODUCT_DETAILS_RESET, PRODUCT_EDIT_RESET } from '../../constants/productConstants';
 import "./ProductEdit.scss";
 
 function ProductEdit(props) {
@@ -15,7 +15,7 @@ function ProductEdit(props) {
     const [countInStock, setCountInStock] = useState('');
     const [showImage, setShowImage] = useState('')
     const [showAdditionalImage, setShowAdditionalImage] = useState('')
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState("");
     const [images, setImages] = useState([]);
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
@@ -24,22 +24,62 @@ function ProductEdit(props) {
     const [errorUpload, setErrorUpload] = useState('');
     const [selectedRadio, setSelectedRadio] = useState('url');
 
+    //this component used for create or edit product
+    //route for create a new product is /product/create
+    //route for edit a specific product if product/edit/:idProd
+    const idProduct = props.match.params.idProd;
+
 
     const productCreate = useSelector(state => state.productCreate);
     const { success: successCreate, error: errorCreate, product: createdProduct } = productCreate;
 
+    const productEdit = useSelector(state => state.productEdit);
+    const { success: successEdit, error: errorEdit } = productEdit;
 
-    // const productUpdate = useSelector(state => state.productUpdate);
-    // const { success: successUpdate, error: errorUpdate, product: createdUpdate } = productUpdate;
+    //details of product
+    const productDetails = useSelector(state => state.productDetails);
+    const { loading,  product } = productDetails;
 
     const dispatch = useDispatch();
 
+    //component did mount
     useEffect(() => {
-        if (successCreate) {
-            dispatch({ type: PRODUCT_CREATE_RESET });
-            props.history.push(`/`);
+        dispatch({ type: PRODUCT_DETAILS_RESET });
+    }, []);
+
+    useEffect(() => {
+        //complete product details in input fields if this route is used for editing product
+        if (idProduct) {
+            if (!product?.name) {
+                dispatch(DetailsProduct(idProduct));
+            } else {
+                setName(product.name);
+                setPrice(product.price);
+                setCountInStock(product.countInStock);
+                setBrand(product.brand);
+                setImage(product.image);
+                setShowImage(product.image)
+                setImages(product.images || []);
+                setDescription(product.description);
+                setCategory(product.category);
+            }
         }
-    }, [dispatch, successCreate, image])
+
+        //for editing a product
+        if (successEdit) {
+            dispatch({ type: PRODUCT_EDIT_RESET });
+            props.history.push(`/product/${idProduct}`);
+
+        }
+        //for creating new product
+        if (successCreate) {
+            const link = createdProduct._id
+            dispatch({ type: PRODUCT_CREATE_RESET });
+            props.history.push(`/product/${link}`);
+        }
+
+
+    }, [product, dispatch, successCreate, idProduct, successEdit,])
 
     const uploadFileHandler = (event, forImages) => {
         const file = event.target.files[0];
@@ -72,7 +112,20 @@ function ProductEdit(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(createProduct({ name, price, image, images, brand, category, countInStock, description }))
+        if (!image) {
+            setErrorUpload("Please upload an image for your product under main image section");
+            setTimeout(() => {
+                setErrorUpload("")
+            }, 3000);
+            return;
+        }
+
+        if (idProduct) {
+            dispatch(editProduct({ name, price, image, images, brand, category, countInStock, description }, idProduct))
+        } else {
+            dispatch(createProduct({ name, price, image, images, brand, category, countInStock, description }))
+        }
+
     }
 
 
@@ -81,9 +134,7 @@ function ProductEdit(props) {
         <div className="container product-edit">
             <form onSubmit={handleSubmit}>
                 <h2>Add new product</h2>
-
-                {errorUpload && <MessageBox error={true} filled={true}>{errorUpload}</MessageBox>}
-                {errorCreate && <MessageBox error={true} filled={true}>{errorCreate}</MessageBox>}
+                {loading && <LoadingBox />}
                 <TextField
                     label="Name"
                     variant="filled"
@@ -142,9 +193,9 @@ function ProductEdit(props) {
                 />
 
                 {/* IMAGES  */}
-                <div >
+                <div>
                     <br></br>
-                    <FormLabel className="label">Upload main image</FormLabel>
+                    <FormLabel className="label">Image*</FormLabel>
                     <RadioGroup className="radio" value={selectedRadio} onChange={handleChangeRadio}>
                         <FormControlLabel value="url" name="url" control={<Radio />} label="Add image URL" />
                         <FormControlLabel value="file" name="file" control={<Radio />} label="Upload image file" />
@@ -157,23 +208,32 @@ function ProductEdit(props) {
                     alt="dummy" className="product__image" />
                 {uploading && <LoadingBox />}
 
-                {selectedRadio === "url" ? <TextField
-                    label="Image Url"
-                    variant="filled"
-                    type="text"
-                    value={image}
-                    onChange={e => {
-                        setImage(e.target.value)
-                        setShowImage(e.target.value)
-                    }}
-                />
-                    : <input
-                        label="Image File"
-                        name="image"
-                        variant="filled"
-                        type="file"
-                        onChange={uploadFileHandler}
-                    />
+                {selectedRadio === "url" ?
+                    <div>
+                        <FormLabel className="label">Upload main image</FormLabel>
+                        <TextField
+                            label="Main image"
+                            variant="filled"
+                            type="text"
+                            value={image}
+                            onChange={e => {
+                                setImage(e.target.value)
+                                setShowImage(e.target.value)
+                            }}
+                        />
+                    </div>
+                    :
+                    <div>
+                        <FormLabel className="label">Upload main image</FormLabel>
+                        <input
+                            label="Image File"
+                            name="image"
+                            variant="filled"
+                            type="file"
+                            onChange={uploadFileHandler}
+                        />
+                        <hr></hr>
+                    </div>
                 }
 
                 <img src={showAdditionalImage
@@ -185,7 +245,7 @@ function ProductEdit(props) {
 
                 {selectedRadio === "url"
                     ? <TextField
-                        label="Add more image"
+                        label="Add more images"
                         variant="filled"
                         type="text"
                         value=""
@@ -194,17 +254,25 @@ function ProductEdit(props) {
                             setShowAdditionalImage(e.target.value)
                         }}
                     />
-                    : <input
-                        label="Image File"
-                        name="images"
-                        variant="filled"
-                        type="file"
-                        onChange={e => uploadFileHandler(e, true)}
-                    />
+                    :
+                    <div>
+
+                        <FormLabel className="label">Add more images</FormLabel>
+                        <input
+                            label="Image File"
+                            name="images"
+                            variant="filled"
+                            type="file"
+                            onChange={e => uploadFileHandler(e, true)}
+                        />
+                        <hr></hr>
+                    </div>
                 }
+
+
                 <br></br>
                 <FormLabel className="label">List of additional images</FormLabel>
-                <div  className="product__image--additional">
+                <div className="product__image--additional">
                     {images.length === 0 ? <em>No image</em> :
                         images.map((img, id) =>
                             <img src={img} key={id} alt={`img-${id}`}
@@ -216,12 +284,11 @@ function ProductEdit(props) {
 
 
                 <div>
-                    <Button className="btn" type="submit">ADD</Button>
+                    <Button className="btn" type="submit">{idProduct ? "UPDATE" : "ADD"}</Button>
                 </div>
-
-
-
-
+                {errorUpload && <MessageBox error={true} filled={true}>{errorUpload}</MessageBox>}
+                {errorCreate && <MessageBox error={true} filled={true}>{errorCreate}</MessageBox>}
+                {errorEdit && <MessageBox error={true} filled={true}>{errorEdit}</MessageBox>}
             </form>
         </div>
     )

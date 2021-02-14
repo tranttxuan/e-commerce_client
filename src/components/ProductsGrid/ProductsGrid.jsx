@@ -7,14 +7,14 @@ import { Grid } from '@material-ui/core';
 import MessageBox from '../MessageBox/MessageBox';
 import LoadingBox from '../LoadingBox/LoadingBox';
 
-function ProductsGrid() {
+function ProductsGrid(props) {
      const dispatch = useDispatch();
      const productList = useSelector(state => state.productList)
      const { loading, error, products } = productList;
 
      useEffect(() => {
-          dispatch(ListProducts({ feaured: true }))
-     }, [dispatch]);
+          dispatch(ListProducts(props.searchQuery))
+     }, [dispatch,props.searchQuery]);
 
      return (
 
@@ -37,7 +37,6 @@ function ProductsGrid() {
 
                                         <Product
                                              item
-                                             xs={12}
                                              key={_id}
                                              id={_id}
                                              name={name}

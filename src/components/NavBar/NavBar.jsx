@@ -14,8 +14,9 @@ import { signout } from "../../actions/userAction";
 
 function NavBar(props) {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl2, setAnchorEl2] = useState(null);
     const [searchValue, setSearchValue] = useState("");
-    const handleAuthentication = (even) => { };
+
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
 
@@ -37,13 +38,21 @@ function NavBar(props) {
             dispatch(signout())
         }, 1000);
     }
-
+    //dropdown for user
     const handleDropDown = (event) => {
         setAnchorEl(event.currentTarget);
     }
     const handleClose = () => {
         setAnchorEl(null);
     };
+    //dropdown for seller
+    const handleDropDown2 = (event) => {
+        setAnchorEl2(event.currentTarget);
+    }
+    const handleClose2 = () => {
+        setAnchorEl2(null);
+    };
+
 
 
     return (
@@ -67,7 +76,7 @@ function NavBar(props) {
             </div>
 
             <div className="header__nav">
-                <div className="header__option" onClick={handleAuthentication}>
+                <div className="header__option">
                     <Button className="header__optionLineOne" color="inherit">
                         Hello, {userInfo ? userInfo.name : "Guest"}
                     </Button>
@@ -91,10 +100,7 @@ function NavBar(props) {
                                         <Button color="inherit"
                                             onClick={e => props.history.push("/profile")}
                                         >
-                                            {/* <Link className="header__optionLineTwo"
-                                                to="/profile" > */}
-                                                Profile
-                                                {/* </Link> */}
+                                            Profile
                                         </Button>
                                     </MenuItem>
 
@@ -122,19 +128,56 @@ function NavBar(props) {
                                 }
                             </MenuItem>
 
-                            {userInfo && userInfo.isSeller &&
+
+
+                        </Menu>
+                    </div>
+
+                </div>
+                {userInfo && userInfo.isSeller && <div className="header__option">
+                    <Button className="header__optionLineOne" color="inherit">
+                        Seller
+                    </Button>
+                    <div>
+                        <Button className="header__optionLineTwo" color="inherit"
+                            id="yourAccountButton"
+                            onClick={handleDropDown2}>
+                            Your Shop <ArrowDropDownIcon />
+                        </Button>
+                        <Menu
+                            id="customized-menu"
+                            anchorEl={anchorEl2}
+                            keepMounted
+                            open={Boolean(anchorEl2)}
+                            onClose={handleClose2}
+
+                        >
+                            <div>
+                                <MenuItem>
+                                    <Button color="inherit"
+                                        onClick={e => props.history.push("/orderlist/seller")}>
+                                        Order List
+                                    </Button>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Button color="inherit"
+                                        onClick={e => props.history.push("/productlist/seller")}>
+                                        Product List
+                                    </Button>
+                                </MenuItem>
+
                                 <MenuItem>
                                     <Button color="inherit"
                                         onClick={e => props.history.push("/product/create")}>
                                         Add new product
                                     </Button>
                                 </MenuItem>
-                            }
-
+                            </div>
                         </Menu>
                     </div>
 
-                </div>
+                </div>}
+
 
                 <Link to="/cart">
                     <div className="header__optionBasket">

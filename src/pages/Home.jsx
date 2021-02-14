@@ -7,7 +7,7 @@ function Home() {
     return (
         <div className="container">
             <Banner />
-            <ProductsGrid />
+            <ProductsGrid searchQuery={{}}/>
         </div>
 
     );

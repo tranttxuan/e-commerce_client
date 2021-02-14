@@ -62,9 +62,9 @@ export default {
      //*******/ 
      // Products
      //*******/ 
-     fetchProductsData({ category, name, order, min, max, rating }) {
+     fetchProductsData({ category, name, order, min, max, rating, seller }) {
           return service
-               .get(`/products?category=${category}&name=${name}&order=${order}&min=${min}&max=${max}&rating=${rating}`)
+               .get(`/products?category=${category}&name=${name}&order=${order}&min=${min}&max=${max}&rating=${rating}&seller=${seller}`)
                .then((res) => res.data)
                .catch(errorHandler);
      },
@@ -85,6 +85,20 @@ export default {
      createProduct(data) {
           return service
                .post(`/products/create`, data)
+               .then((res) => res.data)
+               .catch(errorHandler);
+     },
+     
+     updateProduct(data, id){
+          return service
+          .patch(`/products/edit/${id}`, data)
+          .then((res) => res.data)
+          .catch(errorHandler);
+     },
+
+     deleteProduct(id) {
+          return service
+               .delete(`/products/delete/${id}`)
                .then((res) => res.data)
                .catch(errorHandler);
      },
@@ -132,7 +146,7 @@ export default {
      //*******/
      uploadFile(formData) {
           return service
-               .post(`/upload`,formData)
+               .post(`/upload`, formData)
                .then((res) => res.data)
                .catch(errorHandler);
      },

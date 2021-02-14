@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./OneProduct.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { DetailsProduct } from "../actions/productActions";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { DetailsProduct } from "../../actions/productActions";
 import { Rating } from "@material-ui/lab";
 import { Button, Grid } from "@material-ui/core";
-import LoadingBox from "../components/LoadingBox/LoadingBox";
-import MessageBox from "../components/MessageBox/MessageBox";
+import LoadingBox from "../../components/LoadingBox/LoadingBox";
+import MessageBox from "../../components/MessageBox/MessageBox";
 
 function OneProduct(props) {
     const [selectedImage, setSelectedImage] = useState("");
@@ -18,6 +19,9 @@ function OneProduct(props) {
     const productId = props.match.params.id;
     const productDetails = useSelector((state) => state.productDetails);
     const { loading, error, product } = productDetails;
+
+    const userSignin = useSelector(state => state.userSignin);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -46,16 +50,28 @@ function OneProduct(props) {
             ) : (
                         //INFO
                         <div className="one-product container" >
-                            <Link to="/" className="one-product__back-icon">
-                                <ArrowBackIcon />
-                                 Back to result
-                            </Link>
+                            <Grid container justify="space-between">
+                                <Grid item>
+                                    <Button className="btn btn-extra" onClick={e => props.history.goBack()}>
+                                        <ArrowBackIcon />
+                                        Back
+                                </Button>
+                                </Grid>
+                                {userSignin && userSignin.userInfo?._id === product.seller &&
+                                    <Grid item>
+                                        <Button className="btn btn-extra" onClick={e => props.history.push(`/product/edit/${productId}`)}>
+                                            Edit
+                                        <ArrowForwardIcon />
+                                        </Button>
+                                    </Grid>}
+                            </Grid>
+
 
                             <Grid spacing={3} container justify={"space-around"} className="one-product__wrapper">
                                 <Grid item xs={12} sm={6} >
                                     <div className="one-product__img-prod">
                                         <img
-                                            src={ selectedImage || product.image}
+                                            src={selectedImage || product.image}
                                             alt={product.name}
                                         />
                                     </div>
