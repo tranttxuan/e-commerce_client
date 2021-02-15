@@ -15,6 +15,7 @@ import { signout } from "../../actions/userAction";
 function NavBar(props) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorEl2, setAnchorEl2] = useState(null);
+    const [anchorEl3, setAnchorEl3] = useState(null);
     const [searchValue, setSearchValue] = useState("");
 
     const cart = useSelector(state => state.cart);
@@ -52,6 +53,13 @@ function NavBar(props) {
     const handleClose2 = () => {
         setAnchorEl2(null);
     };
+ //dropdown for admin
+ const handleDropDown3 = (event) => {
+    setAnchorEl3(event.currentTarget);
+}
+const handleClose3 = () => {
+    setAnchorEl3(null);
+};
 
 
 
@@ -177,6 +185,58 @@ function NavBar(props) {
                     </div>
 
                 </div>}
+
+
+
+                {/* ///admin  */}
+                {userInfo && userInfo.isAdmin && <div className="header__option">
+                    <Button className="header__optionLineOne" color="inherit">
+                        Admin
+                    </Button>
+                    <div>
+                        <Button className="header__optionLineTwo" color="inherit"
+                            id="yourAccountButton"
+                            onClick={handleDropDown3}>
+                            Dashboard <ArrowDropDownIcon />
+                        </Button>
+                        <Menu
+                            id="customized-menu"
+                            anchorEl={anchorEl3}
+                            keepMounted
+                            open={Boolean(anchorEl3)}
+                            onClose={handleClose3}
+
+                        >
+                            <div>
+                                <MenuItem>
+                                    <Button color="inherit"
+                                        onClick={e => props.history.push("/dashboard")}>
+                                        Dashboard
+                                    </Button>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Button color="inherit"
+                                        onClick={e => props.history.push("/userlist")}>
+                                       Users
+                                    </Button>
+                                </MenuItem>
+
+                                <MenuItem>
+                                    <Button color="inherit"
+                                        onClick={e => props.history.push("/support")}>
+                                        Support
+                                    </Button>
+                                </MenuItem>
+                            </div>
+                        </Menu>
+                    </div>
+
+                </div>}
+
+
+
+
+
 
 
                 <Link to="/cart">

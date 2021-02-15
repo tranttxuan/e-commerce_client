@@ -115,7 +115,7 @@ function OneProduct(props) {
                                                             onClick={() => changeImage(prod)}
                                                         >
                                                             <img
-                                                                src={prod}
+                                                                src={prod || ""}
                                                                 alt="product"
                                                                 className="small"
                                                             />

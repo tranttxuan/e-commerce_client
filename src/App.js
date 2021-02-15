@@ -22,6 +22,9 @@ import NotFound from './pages/NotFound';
 import ProductListOfSeller from './pages/ProductListOfSeller';
 import Seller from './pages/Seller/Seller';
 import OrderListOfSeller from './pages/OrderListOfSeller';
+import Dashboard from './pages/Dashboard/Dashboard';
+import UserList from './pages/UserList/UserList';
+import Support from './pages/Support/Support';
 
 
 function App() {
@@ -44,8 +47,11 @@ function App() {
         <SellerRoute exact path="/orderlist/seller" component={OrderListOfSeller} />
         <SellerRoute exact path="/product/create" component={ProductEdit} />
         <SellerRoute exact path="/product/edit/:idProd" component={ProductEdit} />
+
         {/* Admin  */}
-        {/* <AdminRoute exact path="manageproduct" component={ } />" */}
+        <AdminRoute exact path="/dashboard" component={Dashboard} />"
+        <AdminRoute exact path="/userlist" component={UserList} />"
+        <AdminRoute exact path="/support" component={Support} />"
 
 
         {/* Public  */}

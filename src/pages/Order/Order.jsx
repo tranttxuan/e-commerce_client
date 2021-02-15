@@ -1,8 +1,8 @@
-import {  Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { detailsOrder} from '../../actions/orderActions';
+import { detailsOrder } from '../../actions/orderActions';
 import CheckOutSteps from '../../components/CheckOutSteps/CheckOutSteps'
 import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import MessageBox from '../../components/MessageBox/MessageBox';
@@ -62,9 +62,7 @@ function Order(props) {
                             <div className="box">
                                 <h3>Shipping</h3>
                                 <p><strong>Name: </strong>{order.shippingAddress.fullName}</p>
-                                <p><strong>Address: </strong> {order.shippingAddress.address},
-                            {order.shippingAddress.city}, {order.shippingAddress.postalCode},
-                            {order.shippingAddress.country} </p>
+                                <p><strong>Address: </strong> {order.shippingAddress.address}, {order.shippingAddress.city}, {order.shippingAddress.postalCode}, {order.shippingAddress.country} </p>
                                 {order.isDelivered
                                     ? <MessageBox>Delivered at {order.deliveredAt}</MessageBox>
                                     : <MessageBox error={true}>Not Delivered</MessageBox>}
@@ -74,7 +72,7 @@ function Order(props) {
                                 <h3>Payment</h3>
                                 <p><strong>Method: </strong> {order.paymentMethod === "Stripe" && "Credit Card"} </p>
                                 {order.isPaid
-                                    ? <MessageBox>Payment at {order.paidAt}</MessageBox>
+                                    ? <MessageBox>Payment at {order.paidAt.substring(0, 10)}</MessageBox>
                                     : <MessageBox error={true}>Not Paid</MessageBox>}
                             </div>
 
@@ -123,13 +121,13 @@ function Order(props) {
                                     <div><strong>${order.totalPrice.toFixed(2)}</strong></div>
                                 </div>
 
-                              {  !order.isPaid && <div className="payment">
+                                {!order.isPaid && <div className="payment">
                                     <div><strong>Payment</strong></div>
                                     <Elements stripe={promise}>
                                         <CheckoutForm
                                             totalPrice={order.totalPrice.toFixed(2)}
                                             order={order}
-                                           
+
                                         />
                                     </Elements>
 
