@@ -242,10 +242,17 @@ form {
 }
 
 //TABLE
+.container-table{
+    margin: 50px auto;
+    & td.btn-grid > button{
+        margin-right: 10px!important;
+        margin-bottom: 10px!important;
+    }
+}
 table {
     display: flex;
     display: block;
-    overflow-x: scroll;
+    overflow-x: auto;
 
     margin: 10px;
     border-radius: 5px;
@@ -259,7 +266,7 @@ table {
     & thead,
     & tbody {
         display: block;
-        overflow-x: scroll;
+        overflow-x: auto;
     }
     & thead th {
         background-color: $color-dark-blue;
@@ -270,7 +277,7 @@ table {
         // top: 0;
     }
     & tbody {
-        overflow-y: scroll;
+        overflow-y: auto;
         max-height: 70vh;
         height: 100%;
     }
@@ -281,7 +288,7 @@ table {
 
     & tr {
         display: flex;
-     justify-content: stretch;
+        justify-content: stretch;
         width: 100%;
     }
     & td,
@@ -295,7 +302,10 @@ table {
             flex: 0 0 100px;
         }
     }
-
+    & td:first-child,
+    & th:first-child {
+        flex: 0 0 230px;
+    }
 
     & img {
         width: 50px;

@@ -19,9 +19,9 @@ import AdminRoute from './components/Auth/AdminRoute';
 import ProductEdit from './pages/ProductEdit/ProductEdit';
 import SellerRoute from './components/Auth/SellerRoute';
 import NotFound from './pages/NotFound';
-import ProductListOfSeller from './pages/ProductListOfSeller/ProductListOfSeller';
+import ProductListOfSeller from './pages/ProductListOfSeller';
 import Seller from './pages/Seller/Seller';
-import OrderListOfSeller from './pages/OrderListOfSeller/OrderListOfSeller';
+import OrderListOfSeller from './pages/OrderListOfSeller';
 
 
 function App() {

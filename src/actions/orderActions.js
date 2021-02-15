@@ -1,6 +1,12 @@
 import apiHandler from "../api/apiHandler"
 import { CART_EMPTY } from "../constants/cartConstants"
-import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_MINE_LIST_REQUEST, ORDER_MINE_LIST_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS } from "../constants/orderConstants"
+import {
+    ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS,
+    ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS,
+    ORDER_MINE_LIST_REQUEST, ORDER_MINE_LIST_SUCCESS, ORDER_MINE_LIST_FAIL,
+    ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS,
+    ORDER_SELLER_LIST_REQUEST, ORDER_SELLER_LIST_SUCCESS, ORDER_SELLER_LIST_FAIL, ORDER_DELETE_REQUEST, ORDER_DELETE_SUCCESS, ORDER_DELETE_FAIL,
+} from "../constants/orderConstants"
 
 export const createOrder = (order) => (dispatch, getState) => {
     console.log("check order in reducer", order)
@@ -51,6 +57,7 @@ export const detailsOrder = (orderId) => (dispatch, getState) => {
         })
 }
 
+
 export const payOrder = (order, paymentResult) => (dispatch, getState) => {
     dispatch({
         type: ORDER_PAY_REQUEST,
@@ -76,17 +83,53 @@ export const listOrderMine = () => (dispatch, getState) => {
     dispatch({ type: ORDER_MINE_LIST_REQUEST });
 
     apiHandler.getListOrders()
-    .then(data => {
-        console.log("go here", data)
-        dispatch({
-            type: ORDER_MINE_LIST_SUCCESS,
-            payload:data
+        .then(data => {
+            dispatch({
+                type: ORDER_MINE_LIST_SUCCESS,
+                payload: data
+            })
         })
-    })
-    .catch(error => {
-        dispatch({
-            type: ORDER_PAY_FAIL,
-            payload: error.message
+        .catch(error => {
+            dispatch({
+                type: ORDER_MINE_LIST_FAIL,
+                payload: error.message
+            })
         })
-    })
+}
+
+
+export const listOrderSeller = () => (dispatch, getState) => {
+    dispatch({ type: ORDER_SELLER_LIST_REQUEST })
+
+    apiHandler.getListOrdersBySeller()
+        .then(data => {
+            dispatch({
+                type: ORDER_SELLER_LIST_SUCCESS,
+                payload: data
+            })
+        })
+        .catch(error => {
+            dispatch({
+                type: ORDER_SELLER_LIST_FAIL,
+                payload: error.message
+            })
+        })
+}
+
+export const deleteOrder = (id) => (dispatch, getState) => {
+    dispatch({ type: ORDER_DELETE_REQUEST });
+
+    apiHandler.deleteOrder(id)
+        .then(data => {
+            dispatch({
+                type: ORDER_DELETE_SUCCESS,
+                payload: data
+            })
+        })
+        .catch(error => {
+            dispatch({
+                type: ORDER_DELETE_FAIL,
+                payload: error.message
+            })
+        })
 }

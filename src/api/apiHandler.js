@@ -125,6 +125,20 @@ export default {
                .then((res) => res.data)
                .catch(errorHandler);
      },
+
+     getListOrdersBySeller(){
+          return service
+          .get(`/orders/seller`)
+          .then((res) => res.data)
+          .catch(errorHandler);
+     },
+
+     deleteOrder(id){
+          return service
+          .delete(`/orders/${id}`)
+          .then((res) => res.data)
+          .catch(errorHandler);
+     },
      //*******/ 
      // PAYPAL
      //*******/

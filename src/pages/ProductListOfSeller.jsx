@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
-import "./ProductListOfSeller.scss";
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProduct, ListProducts } from '../../actions/productActions';
-import LoadingBox from '../../components/LoadingBox/LoadingBox';
-import MessageBox from '../../components/MessageBox/MessageBox';
+import { deleteProduct, ListProducts } from '../actions/productActions';
+import LoadingBox from '../components/LoadingBox/LoadingBox';
+import MessageBox from '../components/MessageBox/MessageBox';
 import { Button } from '@material-ui/core';
 
 function ProductListOfSeller(props) {
@@ -34,7 +33,7 @@ function ProductListOfSeller(props) {
     }, [dispatch, _id, successDelete])
 
     return (
-        <div className="container productListOfSeller">
+        <div className="container container-table">
             <table>
                 <thead>
                     <tr>
